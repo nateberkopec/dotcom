@@ -3,10 +3,20 @@
   {% include head.html %}
   <body>
     {% include header.html %}
-    <article>
-      {{ content }}
-    </article>
-    {% include print-footer.html %}
-    {% include footer.html %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <article>
+            {{ content }}
+          </article>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {% include print-footer.html %}
+          {% include footer.html %}
+        </div>
+      </div>
+    </div>
   </body>
 </html>

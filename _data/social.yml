@@ -1,6 +1,6 @@
 - link: //www.twitter.com/nateberkopec
-  icon: icon-twitter
-- link: //github.com/nateberkoped
-  icon: icon-github
+  name: Twitter
+- link: //github.com/nateberkopec
+  name: Github
 - link: /feed
-  icon: icon-feed
+  name: RSS

@@ -1,0 +1,83 @@
+---
+---
+
+@import "bootstrap/mixins";
+@import "settings";
+
+@import "bootstrap/normalize";
+@import "bootstrap/type";
+@import "bootstrap/grid";
+@import "bootstrap/print";
+@import "bootstrap/code";
+@import "bootstrap/responsive-utilities";
+@import "bootstrap/utilities";
+
+@import "fonts";
+@import "syntax-highlighting";
+
+/* clearfix hack after Cederholm (group class name) */
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.fullwidth { max-width: 95%; }
+
+.sidenote, .marginnote{
+  float: right;
+  clear: right;
+  margin-right: -60%;
+  width: 50%;
+  margin-top: 0rem;
+  margin-bottom: 1.96rem;
+  font-size: 1.0rem;
+  line-height: 1.96;
+  vertical-align: baseline;
+  position: relative;
+}
+
+.sidenote a {
+  font-size: 0.9rem;
+  line-height: 2.177777777778;
+  margin-bottom: 2.177777777778rem;
+}
+
+@media screen and (max-width: 600px){
+  .sidenote, .marginnote{
+    width: 25%;
+    margin-right: -35%;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .sidenote, .marginnote{
+    display:none;
+  }
+}
+
+.footnotes{
+  margin-bottom: 1.4rem;
+}
+
+.sidenote-number {
+  color: lighten($contrast-color, 15%);
+}
+
+.newthought {
+  font-variant: small-caps;
+}
+
+/* LaTeX-logo-specific styling */
+.latex sub, .latex sup { text-transform: uppercase; }
+
+.latex sub { vertical-align: -0.5ex;
+             margin-left: -0.1667rem;
+             margin-right: -0.125rem; }
+
+.latex, .latex sub { font-size: 1rem; }
+
+.latex sup { font-size: 0.85rem;
+             vertical-align: 0.15rem;
+             margin-left: -0.36rem;
+             margin-right: -0.15rem; }
