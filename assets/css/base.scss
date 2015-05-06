@@ -55,6 +55,12 @@
 @import "syntax-highlighting";
 @import "homepage";
 
+p {
+  font-size: 22px;
+  font-weight: 200;
+  margin: 0 0 28px;
+}
+
 .fullwidth { max-width: 95%; }
 
 .sidenote, .marginnote{

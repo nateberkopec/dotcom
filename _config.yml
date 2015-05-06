@@ -5,8 +5,6 @@ description: > # this means to ignore newlines until "baseurl:"
   The blog of Nate Berkopec, Ruby on Rails programmer.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://nateberkopec.com" # the base hostname & protocol for your site
-twitter_username: nateberkopec
-github_username: nateberkopec
 author: Nate Berkopec
 
 # Build settings
@@ -20,8 +18,3 @@ page:
 editor: subl
 git:
   branch: master
-transfer:
-  command: rsync
-  settings: -av
-  source: _site/
-  destination: ~/Git/clayh53.github.com/
