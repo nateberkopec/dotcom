@@ -1,0 +1,36 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+#blowup-text {
+  font-size: 12em;
+  color: #000;
+  font-family: 'Oswald', sans-serif;
+  line-height: .9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+#blowup-text-small {
+  font-size: 6em;
+  color: #000;
+  font-family: 'Oswald', sans-serif;
+  line-height: .9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+#blowup-text .char52, #blowup-text .char15, #blowup-text .char33, #blowup-text .char34 {
+  margin-left: -0.02em;
+}
+
+#blowup-text .char16 {
+  margin-left: -0.08em;
+}
+
+#blowup-text .char51 {
+  margin-left: .06em;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 200;
+}

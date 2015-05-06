@@ -7,6 +7,7 @@
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
   <link rel="stylesheet" href="{{ "/css/base.css" | prepend: site.baseurl }}">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
 
   <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
   {% if site.data.options.mathjax %}
