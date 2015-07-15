@@ -2,10 +2,18 @@
 layout: default
 ---
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-7 post">
     <article>
       <h1>{{ page.title | titleize }}</h1>
+
       {{ content }}
+
+      <h3>Sign up for my Ruby/Rails Performance Newsletter</h3>
+
+      <p>I'm Nate Berkopec (<a href="https://twitter.com/nateberkopec">@nateberkopec</a>). I write online about Ruby and Rails performance. If you liked this article and want to hear about the next one, click below. I don't spam - you'll receive about 1 email per week. It's all low-key, straight from me.</p>
+
+      {% include mailchimp.html %}
     </article>
   </div>
 </div>
+

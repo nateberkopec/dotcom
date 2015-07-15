@@ -55,10 +55,17 @@
 @import "syntax-highlighting";
 @import "homepage";
 
-p {
+p, ol, ul {
   font-size: 22px;
   font-weight: 200;
-  margin: 0 0 28px;
+}
+
+h1,h2,h3,p,ol,ul {
+  margin-bottom: 28px;
+}
+
+blockquote {
+  color: #777;
 }
 
 .fullwidth { max-width: 95%; }
@@ -80,6 +87,10 @@ p {
   font-size: 0.9rem;
   line-height: 2.177777777778;
   margin-bottom: 2.177777777778rem;
+}
+
+.sidenote img {
+  max-width: 500px;
 }
 
 @media screen and (max-width: 600px){
@@ -120,3 +131,7 @@ p {
              vertical-align: 0.15rem;
              margin-left: -0.36rem;
              margin-right: -0.15rem; }
+
+.post {
+  max-width: 800px;
+}
