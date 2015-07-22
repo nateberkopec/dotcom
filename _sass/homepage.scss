@@ -1,12 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
 
 #blowup-text {
-  font-size: 12em;
+  font-size: 200px;
   color: #000;
   font-family: 'Oswald', sans-serif;
   line-height: .9;
   text-transform: uppercase;
   letter-spacing: -0.03em;
+  font-weight: 500;
 }
 
 #blowup-text-small {
@@ -16,6 +17,7 @@
   line-height: .9;
   text-transform: uppercase;
   letter-spacing: -0.03em;
+  font-weight: 500;
 }
 
 #blowup-text .char52, #blowup-text .char15, #blowup-text .char33, #blowup-text .char34 {

@@ -1,11 +1,13 @@
 ---
 layout: post
-title:  "The Complete Guide to Rails Caching"
-date:   2015-05-27 12:00:00
-categories:
+title:  "Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching"
+date:   2015-07-15 12:00:00
+categories: [performance]
 ---
 
-Caching in a Rails app is a little bit like that one friend you sometimes have around for dinner, but should really have around more often. Nearly every Rails app that's serious about performance could use more caching, but most Rails apps eschew it entirely! And yet, intelligent use of caching is usually the only path to achieving sub < 100ms server response times in Rails.
+Caching in a Rails app is a little bit like that one friend you sometimes have around for dinner, but should really have around more often. Nearly every Rails app that's serious about performance could use more caching, but most Rails apps eschew it entirely! And yet, intelligent use of caching is usually the only path to achieving fast server response times in Rails - easily speeding up ~250ms response times to 50-100ms.
+
+A quick note on definitions - this post will only cover "application"-layer caching. I'm leaving HTTP caching (which is a whole nother beast, and not even necessary implemented *in* your application) for another day.
 
 ### Why don't we cache as much as we should?
 
@@ -92,7 +94,7 @@ I'm not aware of any tools yet to do automated testing against your maximum acce
 
 So, how do we decide what our site's actual average response time is in development? I've only described to you how to read response times from the logs - so is the best way to hit "refresh" in your browser a few times and take your best guess at the average result? Nope.
 
-This is where benchmarking tools like `siege` and `Apache Bench` come in. `Apache Bench`, or `ab`, is my favorite, so I'll quickly describe how to use it. You can install it on Homebrew with `brew install ab`.
+This is where benchmarking tools like `wrk` and `Apache Bench` come in. `Apache Bench`, or `ab`, is my favorite, so I'll quickly describe how to use it. You can install it on Homebrew with `brew install ab`.{% sidenote 6 "<i>I've been told you may need to "brew tap homebrew/apache" first for this to work.</i>" %}
 
 Start your server in production mode, as described earlier. Then fire up Apache Bench with the following settings:
 
@@ -216,6 +218,53 @@ Russian doll caching is simply using key-based cache expiration to solve this pr
 
 Now, if *any* of the @todos change (which will change @todos.maximum(:updated_at)) or an Todo is deleted or added to @todos (changing @todos.map(&:id)), our outer cache will be busted. However, any Todo items which have not changed will still have the same cache keys in the inner cache, so those cached values will be re-used. Neat, right? That's all there is to it!
 
+In addition, you may have seen the use of the `touch` option on ActiveRecord associations. Calling the `touch` method on an ActiveRecord object updates' the record's `updated_at` value in the database. Using this looks like:
+
+```
+class Corporation < ActiveRecord::Base
+  has_many :cars
+end
+
+class Car < ActiveRecord::Base
+  belongs_to :corporation, touch: true
+end
+
+class Brake < ActiveRecord::Base
+  belongs_to :car, touch: true
+end
+
+@brake = Brake.first
+
+# calls the touch method on @brake, @brake.car, and @brake.car.corporation.
+# @brake.updated_at, @brake.car.updated_at and @brake.car.corporation.updated_at
+# will all be equal.
+@brake.touch
+
+# changes updated_at on @brake and saves as usual.
+# @brake.car and @brake.car.corporation get "touch"ed just like above.
+@brake.save
+
+@brake.car.touch # @brake is not touched. @brake.car.corporation is touched.
+
+```
+
+We can use the above behavior to elegantly expire our Russian Doll caches:
+
+```
+
+<% cache @brake.car.corporation %>
+  Corporation: <%= @brake.car.corporation.name %>
+  <% cache @brake.car %>
+    Car: <%= @brake.car.name %>
+    <% cache @brake %>
+      Brake system: <%= @brake.name %>
+    <% end %>
+  <% end %>
+<% end %>
+
+```
+
+With this cache structure (and the `touch` relationships configured as above), if we call `@brake.car.save`, our two outer caches will expire (because their `updated_at` values changed) but the inner cache (for `@brake`) will be untouched and reused.
 
 ## Which cache backend should I use?
 
@@ -298,6 +347,8 @@ If you're running more than 1-2 hosts, you should be using a distributed cache s
 ### Redis and redis-store
 
 Redis, like Memcache, is an in-memory, key-value data store. Redis was started in 2009 by Salvatore Sanfilippo, who remains the project lead and sole maintainer today.
+
+In addition to [redis-store](https://github.com/redis-store/redis-store), there's a new Redis cache gem on the block: [readthis](https://github.com/sorentwo/readthis). It's under active development and looks promising.
 
 #### Advantages
 

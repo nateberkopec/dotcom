@@ -1,7 +1,4 @@
-// Font imports file. If you don't want these fonts, comment out these and add your own into the fonts directory 
+// Font imports file. If you don't want these fonts, comment out these and add your own into the fonts directory
 // and point the src attribute to the file.
-// 
-@font-face { 
-	font-family: ETBembo;
-    src: url("../fonts/ETBembo-RomanLF.ttf"); 
-}
+//
+@import url(http://fonts.googleapis.com/css?family=Cardo:400,400italic,700);

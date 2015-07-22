@@ -16,7 +16,7 @@ title: Nate Berkopec
   </div>
   <div class="col-md-6">
     <div style="width 100%; height: 2em" class="visible-md-block visible-lg-block"></div>
-    <h1 style="font-size: 2.1em">
+    <h1 style="margin-top: 0; font-size: 1.7em;">
       I make web applications for businesses <br>
       with Ruby on Rails.
     </h1>
@@ -51,12 +51,12 @@ title: Nate Berkopec
 
 <div class="row">
   {% for post in site.posts limit: 4 %}
-    <div class="col-md-6">
+    <div class="col-md-6" style="min-height: 350px">
       <h3>
         <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
       </h3>
       <p>
-        {{ post.content | truncatewords: 50 }}
+        {{ post.content | strip_html | truncatewords: 50 }}
       </p>
       <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
     </div>

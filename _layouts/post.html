@@ -5,15 +5,51 @@ layout: default
   <div class="col-md-7 post">
     <article>
       <h1>{{ page.title | titleize }}</h1>
+      <div style="margin-bottom: 30px;height: 40px;margin-top: -24px;">
+        <div style="float: left">by <b>Nate Berkopec</b> (<a target="_blank" href="http://twitter.com/nateberkopec">@nateberkopec</a>)</div>
+        <div style="float: right">{% include social-bar.html %}</div>
+      </div>
+      <div class="clearfix"></div>
+
+      {% if page.summary %}
+
+        <p style="background: rgb(221, 221, 221); padding: 10px">
+          <b>Summary:</b> {{ page.summary }} <i>({{page.readtime}})</i>
+        </p>
+
+      {% endif %}
 
       {{ content }}
 
-      <h3>Sign up for my Ruby/Rails Performance Newsletter</h3>
+      {% include social-bar.html %}
+
+      <h2>Want more Ruby performance tips?</h2>
 
       <p>I'm Nate Berkopec (<a href="https://twitter.com/nateberkopec">@nateberkopec</a>). I write online about Ruby and Rails performance. If you liked this article and want to hear about the next one, click below. I don't spam - you'll receive about 1 email per week. It's all low-key, straight from me.</p>
 
       {% include mailchimp.html %}
     </article>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>More Posts</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      {% for post in site.posts limit: 3 %}
+        {% if post.title != page.title %}
+        <div class="col-md-12">
+          <h3>
+            <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          </h3>
+          <p>
+            {{ post.content | strip_html | truncatewords: 50 }}
+          </p>
+          <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </div>
 
