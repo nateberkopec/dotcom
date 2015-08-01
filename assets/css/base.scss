@@ -68,6 +68,10 @@ blockquote {
   color: #777;
 }
 
+.post img {
+  max-width: 100%
+}
+
 .fullwidth { max-width: 95%; }
 
 .sidenote, .marginnote{
@@ -80,12 +84,6 @@ blockquote {
   font-size: 0.65em;
   vertical-align: baseline;
   position: relative;
-}
-
-.sidenote a {
-  font-size: 0.9rem;
-  line-height: 2.177777777778;
-  margin-bottom: 2.177777777778rem;
 }
 
 .sidenote img, .marginnote img {
@@ -133,9 +131,4 @@ blockquote {
 
 .post {
   max-width: 800px;
-}
-
-code.language-text {
-  font-size: $font-size-base * 0.5 !important;
-  line-height: 1.2 !important;
 }

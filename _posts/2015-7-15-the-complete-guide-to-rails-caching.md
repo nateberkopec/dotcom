@@ -2,7 +2,7 @@
 layout: post
 title:  "Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching"
 date:   2015-07-15 12:00:00
-categories: [performance]
+categories:
 ---
 
 Caching in a Rails app is a little bit like that one friend you sometimes have around for dinner, but should really have around more often. Nearly every Rails app that's serious about performance could use more caching, but most Rails apps eschew it entirely! And yet, intelligent use of caching is usually the only path to achieving fast server response times in Rails - easily speeding up ~250ms response times to 50-100ms.
@@ -94,7 +94,7 @@ I'm not aware of any tools yet to do automated testing against your maximum acce
 
 So, how do we decide what our site's actual average response time is in development? I've only described to you how to read response times from the logs - so is the best way to hit "refresh" in your browser a few times and take your best guess at the average result? Nope.
 
-This is where benchmarking tools like `wrk` and `Apache Bench` come in. `Apache Bench`, or `ab`, is my favorite, so I'll quickly describe how to use it. You can install it on Homebrew with `brew install ab`.{% sidenote 6 "<i>I've been told you may need to "brew tap homebrew/apache" first for this to work.</i>" %}
+This is where benchmarking tools like `wrk` and `Apache Bench` come in. `Apache Bench`, or `ab`, is my favorite, so I'll quickly describe how to use it. You can install it on Homebrew with `brew install ab`.{% sidenote 6 "<i>I've been told you may need to 'brew tap homebrew/apache' first for this to work.</i>" %}
 
 Start your server in production mode, as described earlier. Then fire up Apache Bench with the following settings:
 

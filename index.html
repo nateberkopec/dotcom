@@ -27,11 +27,11 @@ title: Nate Berkopec
       <a href="http://www.reddit.com/nateberkopec" ><img src="/assets/img/reddit.png" /></a>
     </p>
     <p>
-      I've worked for several startups, including <a href="http://www.craftcoffee.com">Craft Coffee</a> (YC S14), <a href="http://www.unwind.me">Unwind Me</a> (YC S14), Scaffold (500 Startups), <a href="http://branch.com/">Branch</a> (now <a href="https://itunes.apple.com/us/app/rooms-create-something-together/id924643029?mt=8">a division of Facebook</a>) and many others. I'm a contributor to several open source projects, such as <a href="http://contributors.rubyonrails.org/contributors/nate-berkopec/commits">Ruby on Rails</a> and <a href="https://github.com/getsentry/raven-ruby/commits/master?author=nateberkopec">Sentry</a>.
+      I've worked for several startups, including <a href="http://www.craftcoffee.com">Craft Coffee</a> (YC S14), <a href="http://www.unwind.me">Unwind Me</a> (YC S14), Scaffold (500 Startups), <a href="http://branch.com/">Branch</a> (now <a href="https://itunes.apple.com/us/app/rooms-create-something-together/id924643029?mt=8">a division of Facebook</a>) and many others. I'm a contributor to several open source projects, such as <a href="http://contributors.rubyonrails.org/contributors/nate-berkopec/commits">Ruby on Rails</a> and <a href="https://github.com/getsentry/raven-ruby/commits/master?author=nateberkopec">Sentry</a>. I recently gave <a href="http://confreaks.tv/videos/goruco2015-rails-5-turbolinks-3-and-the-future-of-view-over-the-wire">a talk at GORUCO on Turbolinks.</a>
     </p>
 
     <p>
-      But I'm not just a freelance programmer. I have a business degree - not a computer science degree. <a href="https://www.youtube.com/watch?v=7P9X-DPVnPI#t=2m10s">I appeared on Shark Tank</a>, ABC's primetime entrepreneurship show, when I was nineteen. I've been hired to test new business concepts, design brands, and lay out assembly lines.
+      But I'm not just a freelance programmer. I have a business degree - not a computer science degree. <a href="http://abc.go.com/shows/shark-tank/episode-guide/season-01/113-episode-113">I appeared on Shark Tank</a>, ABC's primetime entrepreneurship show, when I was nineteen. I've been hired to test new business concepts, design brands, and lay out assembly lines.
     </p>
 
     <hr>
@@ -50,15 +50,20 @@ title: Nate Berkopec
 </div>
 
 <div class="row">
-  {% for post in site.posts limit: 4 %}
-    <div class="col-md-6" style="min-height: 350px">
-      <h3>
-        <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </h3>
-      <p>
-        {{ post.content | strip_html | truncatewords: 50 }}
-      </p>
-      <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-    </div>
+  {% assign counter = 0 %}
+  {% assign maxPostCount = 4 %}
+  {% for post in site.posts %}
+    {% if post.date < site.time and counter < maxPostCount %}
+      <div class="col-md-6" style="min-height: 420px">
+        <h3>
+          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h3>
+        <p>
+          {{ post.content | strip_html | truncatewords: 50 }}
+        </p>
+        <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
+      </div>
+      {% assign counter=counter | plus:1 %}
+    {% endif %}
   {% endfor %}
 </div>

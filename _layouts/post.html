@@ -36,17 +36,22 @@ layout: default
     </div>
 
     <div class="row">
-      {% for post in site.posts limit: 3 %}
-        {% if post.title != page.title %}
-        <div class="col-md-12">
-          <h3>
-            <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-          </h3>
-          <p>
-            {{ post.content | strip_html | truncatewords: 50 }}
-          </p>
-          <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-        </div>
+      {% assign counter = 0 %}
+      {% assign maxPostCount = 3 %}
+      {% for post in site.posts %}
+        {% if post.date < site.time and counter < maxPostCount %}
+          {% if post.title != page.title %}
+            <div class="col-md-12">
+              <h3>
+                <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+              </h3>
+              <p>
+                {{ post.content | strip_html | truncatewords: 50 }}
+              </p>
+              <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
+            </div>
+            {% assign counter=counter | plus:1 %}
+          {% endif %}
         {% endif %}
       {% endfor %}
     </div>

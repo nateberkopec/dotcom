@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Secrets to Speedy Ruby Apps On Heroku"
-date:   2015-07-22 12:00:00
-categories: [performance]
-summary: Ruby apps in the memory-restrictive Heroku environment don't have to be slow. Achieve <100ms server response times with the tips laid out below.
+date:   2015-07-22 11:00:00
+categories:
+summary: Ruby apps in the memory-restrictive and randomly-routed Heroku environment don't have to be slow. Achieve <100ms server response times with the tips laid out below.
 readtime: 3706 words/18 minutes
 ---
 I've seen a lot of slow Ruby web apps. Sometimes, it feels like my entire consulting career has been a slow accumulation of downward-sloping New Relic graphs.
 
-Why is the case? If you read [that bastion of intellectual thought, Hacker News](https://twitter.com/shit_hn_says), you'd think it was because Go rocks, Ruby sucks, and Rails is crappy old-news bloatware.
+Why is the case? If you read [that bastion of intellectual thought, Hacker News](https://twitter.com/shit_hn_says), you'd think it was because Go rocks, Ruby sucks, and Rails is crappy old-news bloatware. Also, something about how concurrency is the future, and dynamic typing is for fake programmers that can't code.
 
 {% marginnote "<img src='http://i.imgur.com/qQvbbt9.png'>" %}
 
@@ -16,11 +16,13 @@ And yet, top-1000 websites like [Basecamp](https://www.youtube.com/watch?v=yhseQ
 
 Most of my clients deploy on Heroku nowadays, since it's so easy and the payoff for teams without dedicated devops is obvious. Why spend hours of developer time (worth at least $100/hr in most cases) setting up and maintaining a home-brewed devops setup, when with Heroku you can set it up in minutes?{% marginnote "<img src='http://i.imgur.com/6MnUrju.png'><i>Actual client graph. Slopes for the slope throne!</i>" %}
 
-However, Heroku sometimes makes things a little *too* easy. Ruby apps on Heroku are often slow, with bloated memory requirements, and are frequently over-scaled with way more dynes than they actually require, leading to hundreds of dollars per month in wasted server costs. In addition, the combination of restricted introspection ability (you can't ssh into a dyne while it's running) and reduced devops skill requirements means that most developers that deploy on Heroku have no idea how to solve the performance problems that they've created.
+However, Heroku sometimes makes things a little *too* easy. Ruby apps on Heroku are often slow, with bloated memory requirements and poor webserver choices, leading to hundreds of dollars per month in wasted server costs. In addition, the combination of restricted introspection ability (you can't ssh into a dyne while it's running) and reduced devops skill requirements means that most developers that deploy on Heroku have no idea how to solve the performance problems that they've created.
 
 **This article will give you a solid grasp of how to diagnose and speed up slow Rails apps on the Heroku platform**. Some (or even most) of the points here are applicable to non-Heroku deployments, but I've tailored my terminology here to the Heroku  environment.
 
 ## Memory - Swap is Your Worst Enemy
+
+The number one enemy of Ruby applications on Heroku? Memory.
 
 Most *nix systems use something called swap space when they run out of RAM. This is essentially the operating system using the file system as RAM. However, the filesystem is a lot slower than RAM - 10-50x slower, in fact.
 
@@ -28,7 +30,7 @@ Most *nix systems use something called swap space when they run out of RAM. This
 
 ### Memory bloat and swap usage
 
-Heroku dynos are small. The base 1x dyno carries just 512MB of memory, the 2X 1024MB. While Heroku (correctly) recommends using a worker-based multi-process web server like Puma or Unicorn, far too many Ruby developers don’t know how much memory just 1 worker uses to run their application. This makes it impossible to tune how many server workers are running on each dyno. Instead, developers turn to solutions like `puma-auto-tune`, which are extremely inaccurate and tend to over-estimate how many processes you can run on a dyno. I can't honestly recommend these "automatic" performance tuning solutions (worker killers and 'auto tuners' both) - I've just seen too many cases where the inaccuracy of their measurements causes the dyno to go deep into swap memory, leaving the entire application lurching along at a quarter of it's usual speed.
+Heroku dynos are small. The base 1x dyno carries just 512MB of memory, the 2X 1024MB. While Heroku (correctly) recommends using a worker-based multi-process web server like Puma or Unicorn, far too many Ruby developers don’t know how much memory just 1 worker uses to run their application. This makes it impossible to tune how many server workers are running on each dyno. Instead, developers turn to solutions like `puma-auto-tune`, which are extremely inaccurate and tend to over-estimate how many processes you can run on a dyno. I can't honestly recommend these "automatic" performance tuning solutions (worker killers and 'auto tuners' both) - I've just seen too many cases where the inaccuracy of their measurements causes the dyno to go deep into swap memory, leaving the entire application lurching along at a quarter of its usual speed.
 
 Thankfully, it's trivial to solve this problem ourselves.
 
@@ -36,7 +38,7 @@ It’s simple math. The maximum number of processes (unicorn workers, puma worke
 
 ![(Dyno RAM size in MB - memory used by the master worker process) / Memory per process](http://i.imgur.com/s4nDSs2.png)
 
-What's the master process? Puma (and Unicorn) use "master processes" to coordinate their subordinate worker processes{% sidenote 1 "<i>What the master process actually does is very different in Puma and Unicorn. In Unicorn, it primarily serves the role of sending signals to child processes and forking new ones if old ones die. In Puma, it actually receives the request in an EventMachine-like Reactor pattern.</i>" %}. Here's the output from `ps` when I run Puma with 3 workers:
+What's the master process? Puma (and Unicorn) use "master processes" to coordinate their subordinate worker processes{% sidenote 1 "<i>What the master process actually does is very different in Puma and Unicorn. In Unicorn, it primarily serves the role of sending signals to child processes and forking new ones if old ones die. In Puma, it actually receives the request in an EventMachine-like Reactor pattern. Phusion Passenger 5 uses *several* additional processes, including it's own instance of nginx!</i>" %}. Here's the output from `ps aux | grep puma` when I run Puma with 3 workers:
 
 ```
 PID     %CPU %MEM     VSZ    RSS   TT  STAT STARTED      TIME COMMAND
@@ -48,7 +50,7 @@ PID     %CPU %MEM     VSZ    RSS   TT  STAT STARTED      TIME COMMAND
 
 The master process usually consumes about ~128 MB of RAM all by itself, but you should test this for your application locally.
 
-Passenger 5 uses a separate request server, which will also have it's own memory needs that you should account for. `thin` and `webrick` only use a single process in most Heroku configurations, so none of the above applies to use those servers (setting WEB_CONCURRENCY does nothing). However, using single-process web servers on Heroku can cause major issues if you experience moderate request volume (>60 requests/minute). The reasons why are a topic for another day, but suffice it to say - stick with multi-process web servers on Heroku like Unicorn, Puma and Passenger.
+Passenger 5 uses a separate request server and app helper process, which will also have its own memory needs that you should account for. The process is the same - run your server locally in production mode and use `ps` to check the RSS output. `thin` and `webrick` only use a single process in most Heroku configurations, so none of the above applies to use those servers (setting WEB_CONCURRENCY does nothing). However, using single-process web servers on Heroku can cause major issues if you experience moderate request volume (>60 requests/minute). The reasons why are a topic for another day, but suffice it to say - stick with multi-process web servers on Heroku like Unicorn, Puma and Passenger.
 
 Heroku recommends setting the number of worker processes per dyno based on an environment variable called `WEB_CONCURRENCY`. However, they also suggest that most applications will probably have `WEB_CONCURRENCY` set to 3 or 4. This just hasn’t been my experience - most Ruby applications would be comfortable at `WEB_CONCURRENCY=2` or even `WEB_CONCURRENCY=1` for 1X dynos. For example, for a typical mature Rails application, the app will use about ~250 MB in RAM once it’s warmed up. This is a big number (I’ll go into ways to measure it and make it smaller later), but this seems to be the usual size. To measure your own, start your Ruby app in production mode on your local machine (this is important - class loading behavior is very different in production), hit the server with a dozen or so requests, click around the site for awhile, and check memory usage with `ps`.
 
@@ -56,25 +58,29 @@ A 1X dyno only has 512MB of RAM available, and the master process of a typical P
 
 So the problem here is twofold - most Ruby applications use way too much memory per process, and most developers don’t set `WEB_CONCURRENCY` correctly based on their application’s RAM usage.
 
-Why do most Rails apps use *so much* memory per process? A lot of it is Gemfile cruft. Don’t forget - every single gem you add into your Gemfile increases the amount of memory your Rails server needs per process. Yes, every single line of Ruby code `require`d to run your application increases your memory usage, and decreases the amount of servers you can run per dyno. This isn’t the *only* component of your Rails server’s memory usage, but it’s a big part. Use tools like [derailed_benchmarks](https://github.com/schneems/derailed_benchmarks) to measure how much memory each gem adds to your application.
+Why do most Rails apps use *so much* memory per process? A lot of it is Gemfile cruft. Don’t forget - every single gem you add into your Gemfile increases the amount of memory your Rails server needs per process. Yes, every single line of Ruby code `require`d to run your application increases your memory usage, and decreases the number of servers you can run per dyno. This isn’t the *only* component of your Rails server’s memory usage, but it’s a big part. Use tools like [derailed_benchmarks](https://github.com/schneems/derailed_benchmarks) to measure how much memory each gem adds to your application.
 
-Just because you didn’t write a lot of code doesn’t mean a lot of code isn’t being run. Gem files hide a lot of complexity. When you drop in Devise to do simple authentication instead of rolling your own with Rails’ built-in `has_secure_password`, you’re adding thousands of lines of Ruby{% sidenote 3 "<i>3038 lines, as of Devise 3.5</i>" %} and ~20mb in RAM usage when you could have done it yourself for ~20 lines of Ruby and a negligible RAM impact. Sometimes you need the “big guns”, but usually you don’t. Be aware of the cost, in terms of Ruby lines added, and RAM usage added, of gems you add to your project.
+Just because you didn’t write a lot of code doesn’t mean a lot of code isn’t being run. Gem files hide a lot of complexity. When you drop in Devise to do simple authentication instead of rolling your own with Rails’ built-in `has_secure_password`, you’re adding thousands of lines of Ruby{% sidenote 3 "<i>3038 lines, as of Devise 3.5. I'm picking on Devise here, and there are plenty of good use cases for Devise, but there are a lot of gems out there that people just drop in their Gemfile instead of writing the 20 lines of Ruby required for user/password auth.</i>" %} and ~20mb in RAM usage when you could have done it yourself for ~20 lines of Ruby and a negligible RAM impact. Sometimes you need the “big guns”, but usually you don’t. Be aware of the cost, in terms of Ruby lines added, and RAM usage added, of gems you add to your project.
 
 #### In case of leak, break glass
 
 So you know how I said I don't like worker-killer gems? Well, there's one special case.
 
-If you’ve got a memory leak you can’t track down, you need to employ a solution that will restart your workers when they start to use swap memory. There are a lot of ways to do this. Several gems, like puma-worker-killer, will do it for you.
+If you’ve got a memory leak you can’t track down (more on this in a future post), you need to employ a solution that will restart your workers when they start to use swap memory. There are a lot of ways to do this. Several gems, like puma-worker-killer, will do it for you.
 
 {% marginnote "<img src='http://i.stack.imgur.com/nlwy8.png'><i>What a leak looks like. Note the steep slope of the graph, which crashes back down to low numbers when the dyno restarts. This graph never really levels off.</i>" %}
 
 Remember, **you only need to employ a worker killer if your application is leaking memory - not if it’s just bloated**. How do you know the difference between bloat and leaks?
 
-Try running your application with just 1 process per dyno (e.g. `WEB_CONCURRENCY=1`) on a 2X dyno. You should have a lot of headroom now to watch your memory usage. If, after a few hours of processing requests, your application is still increasing in memory usage unbounded, you’ve got a leak. If it levels off at some point, you’ve just got bloat.
+Try running your application with just 1 process per dyno (e.g. `WEB_CONCURRENCY=1`) on a 2X dyno. You should have a lot of headroom now to watch your memory usage.
 
-Many developers mistake bloats for leaks because they're not waiting long enough for memory usage to level off. You really need to let the server run for about 24 hours (with incoming requests) to be sure that your memory usage doesn't eventually level off.
+Ruby applications memory usage curves, over time, look like logarithmic functions. This is mostly because, as users visit different sections of your site, caches are being warmed, files are being `require`d, and constants are being defined for the first time. Over time (this depends on your request load), these activities have already been performed, so our memory usage starts to level off.
 
-Worker-killers should only kill workers every hour or so, at maximum. If the worker killer is restarting workers more often than that, you may have your `WEB_CONCURRENCY` set too high.
+If, after a few hours of processing requests, your application is still increasing in memory usage unbounded, you’ve got a leak. If it levels off at some point, you’ve just got bloat.
+
+Many developers mistake bloats for leaks because they're not waiting long enough for memory usage to level off. You really need to let the server run for about 24 hours (with incoming requests) to be sure that your memory usage doesn't eventually level off. Remember: memory bloat looks like a logarithm, memory leaks look like linear functions.
+
+Worker-killers should only kill workers every hour or so, at maximum. If the worker killer is restarting workers more often than that, you may have your `WEB_CONCURRENCY` set too high. Remember that Ruby apps *always* grow in memory usage, gradually (sometimes not approaching their "level-off" point until 6 hours after restart), and you want your worker killer to only kill workers in extraordinary circumstances - not just because the server is still being warmed up!
 
 ## Slow Site, Fast Metrics
 
@@ -86,7 +92,7 @@ Do you use NewRelic? Great! If you’re serving your own assets rather than uplo
 
 Asset responses of most Ruby servers are *fast*. Like, 10-15ms per request fast out-of-the-box. And they’re usually very plentiful - you could have 5-10 asset requests per actual web request. See where I’m going here? If your actual HTML response takes 1000ms (unacceptably slow), but the page also makes 10 asset requests for, say, images and CSS, NewRelic averages all of those requests together and will report your overall server response time as just 110ms! Yikes! That’s going to hide the fact that our site is actually quite slow!
 
-You *must* exclude the assets directory from NewRelic’s tracking to get accurate average server response metrics - you can do this in it’s provided YAML configuration file.
+You *must* exclude the assets directory from NewRelic’s tracking to get accurate average server response metrics - you can do this in its provided YAML configuration file.
 
 Unfortunately, you cannot exclude asset requests from Heroku’s metrics page.
 
@@ -121,7 +127,9 @@ By default, Rails uses the filesystem for your cache store. That’s super slow 
 Far too many Ruby developers use overly simplistic data in development, usually generated by rake db:seed. Where security concerns permit, use a copy of the production database in development. Production databases are nearly always larger and more complicated than anything in our database seeds, which makes it easier to identify N+1 queries and slow SQL. Queries that return 1,000,000 rows in production should return 1,000,000 rows in development. Use gems like rack-mini-profiler to constantly monitor the speed of your controller actions.
 
 ## Use a CDN like Cloudfront.
-If you’re following 12-factor methodology (which I recommend), you should be using a CDN between your end user and the application server. This will greatly reduce the load of asset requests on your server, as each asset will only be requested once, and then the cached version will be served from Cloudfront’s servers. Rails’ asset pipeline (via asset digests) will ensure that each time you change your assets, the cache on Cloudfront is expired and the new version will be cached anew.
+If you’re serving your assets, instead of uploading them somewhere else like Amazon S3, you should be using a CDN between your end user and the application server. This will greatly reduce the load of asset requests on your server, as each asset will only be requested once, and then the cached version will be served from Cloudfront’s servers. Rails’ asset pipeline (via asset digests) will ensure that each time you change your assets, the cache on Cloudfront is expired and the new version will be cached anew.
+
+For what it's worth, the performance gained by moving assets entirely over to Amazon S3 has rarely been worth the hassle in my experience. Serving assets from your application server is just fine, especially if you've set up a CDN and each asset is only requested once before being cached on the CDN. You *may* still need to use S3 if you have thousands of assets (images, for example) that make your Heroku app slug too large.
 
 ## Be wary of huge requests/responses
 
@@ -137,16 +145,8 @@ Before Heroku's routing mesh hands off a request to your dyno, it buffers the re
 
 **Not vulnerable to slow clients**:
 
-* Puma (apparently limited protection)
+* Puma (protection limited to slow requests, responses are not buffered)
 * Phusion Passenger 5 (unsure about earlier versions)
-
-## Heroku Support
-
-{% marginnote "<img src='http://i.imgur.com/WZBK6Ak.gif'><i>Heroku Support: 'Have you tried shoveling  faster?</i>'" %}
-
-I've found Heroku's first-line-of-support to be inadequate and not technically competent enough to help you when diagnosing performance issues with your application. Frequently, they'll just tell you to scale dynes (which is almost always unnecessary - we'll get into why in a future post) or buy a bigger database plan.
-
-I don't really blame them - application development is hard and scaling customer service to support application developers must be even harder. But Heroku can't solve your performance problems for you - and especially take it with a grain of salt when it involves you paying more money.
 
 ## 11 Takeaways - The Checklist for Fast Ruby Apps on Heroku
 
