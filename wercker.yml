@@ -23,3 +23,10 @@ build:
         - script:
             name: generate site
             code: bundle exec jekyll build --future --trace
+deploy:
+  steps:
+    - s3sync:
+        key_id: $KEY
+        key_secret: $SECRET
+        bucket_url: $URL
+        source_dir: _site/
