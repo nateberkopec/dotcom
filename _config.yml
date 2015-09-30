@@ -8,6 +8,8 @@ url: "http://nateberkopec.com" # the base hostname & protocol for your site
 author: Nate Berkopec
 # Build settings
 markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 future:      false
 unpublished: false
 
