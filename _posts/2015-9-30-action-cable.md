@@ -7,7 +7,7 @@ summary: Action Cable will be one of the main features of Rails 5, to be release
 readtime: 4205 words/21 minutes
 ---
 
-One of the marquee features of Rails 5 (likely releasing sometime Q4 2015 or Q1 2016) is Action Cable, Rails' new framework for dealing with WebSockets. Action Cable has generated a lot of interest, though perhaps for the wrong reasons. "WebSockets are those cool things the Node people get to use, right?" and "I heard WebSockets are The Future™" seem to be the prevailing attitudes, resulting in a lot of confusion and uncertainty about Action Cable's purpose and promise. It doesn't help that current online discourse around WebSockets is thick with overly fancy buzzwords like "realtime" and "full-duplex". {% marginnote "<img src="http://i.imgur.com/U7vo0Hs.gif" /> <br> <i>Full-duplex? That's twice as good as half-duplex right?</i>" %}  In addition, some claim that a WebSockets-based application is somehow more scalable than traditional implementations. What's a Rails application developer to make of all of this?
+One of the marquee features of Rails 5 (likely releasing sometime Q1/Q2 2016) is Action Cable, Rails' new framework for dealing with WebSockets. Action Cable has generated a lot of interest, though perhaps for the wrong reasons. "WebSockets are those cool things the Node people get to use, right?" and "I heard WebSockets are The Future™" seem to be the prevailing attitudes, resulting in a lot of confusion and uncertainty about Action Cable's purpose and promise. It doesn't help that current online conversation around WebSockets is thick with overly fancy buzzwords like "realtime" and "full-duplex". {% marginnote "<img src="http://i.imgur.com/U7vo0Hs.gif" /> <br> <i>Full-duplex? That's twice as good as half-duplex right?</i>" %}  In addition, some claim that a WebSockets-based application is somehow more scalable than traditional implementations. What's a Rails application developer to make of all of this?
 
 This won't be a tutorial or a how-to article - instead, we're going to get into the *why* of Action Cable, not the *how*.
 
@@ -17,17 +17,17 @@ Let's start with a review of how we got here - what problem is WebSockets trying
 
 The Web is built around the HTTP request. In the good old days, you requested a page (GET) and received a response with the page you requested. We developed an extensive methodology (REST) to create a stateless Web based on requesting and modifying resources on the server.
 
-It's important to realize that an HTTP request is *stateless* - in order for us to know *who* is making the request, the request must tell us itself.  Without reading the contents of the request, there's really no way of knowing what request belongs to which session. Usually, in Rails, we do this with a secure cookie that carries a user ID.
+It's important to realize that an HTTP request is *stateless* - in order for us to know *who* is making the request, the request must tell us itself.  Without reading the contents of the request, there's really no way of knowing what request belongs to which session. Usually, in Rails, we do this with a secure "signed" cookie {% sidenote 1 "A signed cookie means that a client can't tamper with it's value - important if you want to prevent session hijacking!" %} that carries a user ID.
 
 As the web grew richer, with video, audio and more replacing the simple text-only pages of yesteryear, we started to crave a constant, uninterrupted connection between server and client. There were places where we wanted the server to communicate back to the client (or vice versa) frequently:
 
-* **Clients needing to send rapidly to the server.** High-throughput environments, like online browser-based games, needed clients and servers to be able to exchange several messages *per second*. Imagine trying to implement an first person shooter's networking code with HTTP requests. Sometimes this is called a "full-duplex" or "bi-directional" communication.
-* **"Live" data**. Web pages started to have "live" elements - like a comments section that automatically updated when a new comment was added (without a page refresh), chat rooms, constant-updated stock tickers and the like. We wanted the page to update itself when the data changed on the server *without* user input. Sometimes this is called a "realtime" application, though I find that term buzzwordy and usually inaccurate.
+* **Clients needing to send rapidly to the server**. High-throughput environments, like online browser-based games, needed clients and servers to be able to exchange several messages *per second*. Imagine trying to implement an first person shooter's networking code with HTTP requests. Sometimes this is called a "full-duplex" or "bi-directional" communication.
+* **"Live" data**. Web pages started to have "live" elements - like a comments section that automatically updated when a new comment was added (without a page refresh), chat rooms, constant-updated stock tickers and the like. We wanted the page to update itself when the data changed on the server *without* user input. Sometimes this is called a "realtime" application, though I find that term buzzwordy and usually inaccurate. "Realtime" implies constant, nano-second resolution updating. The reality is that the comments section on your website probably doesn't change every nano-second. If you're lucky, it'll change once every minute or so. I prefer the term "Live" for this reason. We all know "live" broadcasts are every so slightly delayed by a few seconds, but we'll still call it "live!".
 * **Streaming**. HTTP proved unsuitable for streaming data. For many years, streaming video required third-party plugins (remember RealPlayer?). Even now, streaming data other than video remains a complex task without WebSockets (remote desktop connections, for example), and it remains nearly impossible to stream binary data to Javascript without Flash or Java applets (eek!).
 
 ## The Road to WebSockets
 
-Over the years, we've developed a lot of different solutions to these problems. Some of them haven't really stood the test of time - Flash XMLSocket relays, and `multipart/x-mixed-replace` come to mind. However, several techniques for solving the "realtime" problem are still in use:
+Over the years, we've developed a lot of different solutions to these problems. Some of them haven't really stood the test of time - Flash XMLSocket relays, and `multipart/x-mixed-replace` come to mind. However, several techniques for solving the "realtime" problem(s) are still in use:
 
 ### Polling
 
@@ -67,7 +67,7 @@ This is the part where I say: "WebSockets to the rescue!" right?  Well, maybe. B
 
 Unlike HTTP requests, WebSocket connections are *stateful*. What does this mean? To use a metaphor - HTTP requests are like a mailbox. All requests come in to the same place, and you have to look at the request (e.g., the return address) to know who sent it to you. In contrast, WebSocket connections are like building a pipe between a server and the client. Instead of all the requests coming in through one place, they're coming in through hundreds of individual pipes. When a new request comes through a pipe, you know *who sent the request*, without even looking at the actual request.
 
-The fact that WebSockets are a *stateful* connection means that the connection between a particular client machine and server must remain constant, otherwise the connection will be broken. For example - a *stateless* protocol like HTTP can be served by any of a dozen or more of your Ruby application's servers, but a WebSocket connection must be maintained by a single instance for the duration of the connection. This is sometimes called "sticky sessions". It also makes load balancing a lot more difficult. However, in return, you don't need to use cookies or session IDs.
+The fact that WebSockets are a *stateful* connection means that the connection between a particular client machine and server must remain constant, otherwise the connection will be broken. For example - a *stateless* protocol like HTTP can be served by any of a dozen or more of your Ruby application's servers, but a WebSocket connection must be maintained by a single instance for the duration of the connection. This is sometimes called "sticky sessions".{% sidenote 2 "As far as I can tell, Action Cable solves this problem using Redis. Basically, each Action Cable server instance listens to a Redis pubsub channel. When a new message is published, the Action Cable server rebroadcasts that message to all connected clients. Because all of the Action Cable servers are connected to the same Redis instance, everyone gets the message." %} It also makes load balancing a lot more difficult. However, in return, you don't need to use cookies or session IDs.
 
 ### No data frames
 
@@ -103,11 +103,13 @@ Yikes, that's 652 bytes before we even get to the data. And we haven't even gott
 
 WebSockets gets rid of most of that. To open a WebSockets connection, the client makes a HTTP request to the server with a special `upgrade` header. The server makes an HTTP response that basically says "Cool, I understand WebSockets, open a WebSockets connection." The client then opens a WebSockets pipe.
 
-Once that WebSockets connection is open, data sent along the pipe doesn't require *hardly any metadata at all*, usually less than about 6 bytes. Neat! We'll get to the performance impact of those savings in a bit.
+Once that WebSockets connection is open, data sent along the pipe doesn't require *hardly any metadata at all*, usually less than about 6 bytes. Neat!
+
+What does all of this mean to us though? Not a whole lot. You could easily do some fancy math here to prove that, since you're eliminating about 2KB of data *per message*, at Google scale you could be saving petabytes of bandwidth. Honestly, I think the savings here are going to vary a lot from application to application, and unless you're at Top 10,000 on Alexa scale, any savings from this might amount to a few bucks on your AWS bill.
 
 ### Two-way communication
 
-{% marginnote "<img src="http://www.reactiongifs.com/r/prs.gif" />" %} One thing you hear a lot about WebSockets is that they're "full-duplex"? What the hell does that mean? Well, clearly, *full* duplex is *better* than *half-duplex* right? More duplexes!
+{% marginnote "<img src="http://www.reactiongifs.com/r/prs.gif" /> <br> <i>How many duplexes do YOU have, Red Ranger?</i>" %} One thing you hear a lot about WebSockets is that they're "full-duplex". What the hell does that mean? Well, clearly, *full* duplex is *better* than *half-duplex* right? That's double the duplexes!
 
 All that full-duplex really means is **simultaneous communication**. With HTTP, the client usually has to complete their request to the server before the server can respond. Not so with WebSockets - clients (and servers) can send messages across the pipe at any time.
 
@@ -115,7 +117,7 @@ The benefits of this to application developers are, in my opinion, somewhat uncl
 
 ### Caniuseit?
 
-What browsers can you actually use WebSockets in? Pretty much all of them. This is one of WebSockets' biggest advantages over SSE, their nearest competitor. caniuse.com puts WebSockets' global adoption rate at about 85%, with the main laggards being Opera Mini and old versions of the Android browser.
+What browsers can you actually use WebSockets in? Pretty much all of them. This is one of WebSockets' biggest advantages over SSE, their nearest competitor. [caniuse.com puts WebSockets' global adoption rate at about 85%](http://caniuse.com/websockets), with the main laggards being Opera Mini and old versions of the Android browser.
 
 ## Enter Action Cable
 
@@ -201,14 +203,15 @@ A couple of things to notice here:
 * We can call the public methods of our Channel from the client side code - I've given an example of "liking" a notification.
 * `stream_from` basically establishes a connection between the client and a named Redis pubsub queue.
 * `Action Cable.server.broadcast` adds a message in a Redis pubsub queue.
+* We have to write some new code for looking up the current_user. With polling, usually whatever code we already have written works just fine.
 
 Overall, I think the API is pretty slick. We have that very Rails-y feel of a Cable's class methods being exposed to the client automatically, the Cable's class name becoming the name of the channel, et cetera.
 
-Yet, this does feel like a lot of code to me. And, in addition, you're going to have write more Javascript than what you have above to connect everything together.
+Yet, this does feel like a lot of code to me. And, in addition, you're going to have write more Javascript than what you have above to connect everything together. Not to mention that now we've got a Redis dependency that we didn't have before.
 
 What I didn't show above is some things that Action Cable gives you for free, like a 3-second heartbeat on all connections. If a client can't be contacted, we automatically disconnect, calling the `unsubscribe` callback on our Channel class.
 
-In addition, the code, as it stands right now, is in my opinion a joy to read. Short, focused classes with well-named and terse methods. In addition, it
+In addition, [the code, as it stands right now](https://github.com/rails/actioncable), is a joy to read. Short, focused classes with well-named and terse methods. In addition, it
 's extremely well documented. DHH ain't no slouch. It's a fast read too, weighing in at about 850 lines of Ruby and 200 lines of CoffeeScript.
 
 ## Performance and Scaling
@@ -247,7 +250,7 @@ Interestingly, these numbers are slightly better than a [node.js application I f
 | 30  | 65ms |
 | 300 | 3600 ms |
 
-Unfortunately, I can't really come up with a great performance measure for *outbound* messaging. Really, we're going to have to wait to see what happens with Action Cable in the wild to know the full story behind whether or not it will scale. For now, the I/O performance looks at least comparable to Node.
+Unfortunately, I can't really come up with a great performance measure for *outbound* messaging. Really, we're going to have to wait to see what happens with Action Cable in the wild to know the full story behind whether or not it will scale. For now, the I/O performance looks at least comparable to Node. That's surprising to me - I honestly didn't expect Puma and Action Cable to deal with this all that well. I suspect it still may come crashing down in environments that are sending many large pieces of data back and forth quickly, but for ordinary apps I think it will scale well. In addition, the use of the Redis pubsub backend lets us scale horizontally the way we're used to.
 
 ## What other tools are available?
 
