@@ -75,7 +75,7 @@ To generalize - let's say that every message has *data* and *metadata*. The *dat
 
 HTTP needs a decent amount of metadata to work. In HTTP, metadata is carried in the form of HTTP headers.
 
-Here's some sample headers from an HTTP response of a Rails server:
+Here are some sample headers from an HTTP response of a Rails server:
 
 ```
 HTTP/1.1 200 OK
@@ -103,7 +103,7 @@ Yikes, that's 652 bytes before we even get to the data. And we haven't even gott
 
 WebSockets gets rid of most of that. To open a WebSockets connection, the client makes a HTTP request to the server with a special `upgrade` header. The server makes an HTTP response that basically says "Cool, I understand WebSockets, open a WebSockets connection." The client then opens a WebSockets pipe.
 
-Once that WebSockets connection is open, data sent along the pipe doesn't require *hardly any metadata at all*, usually less than about 6 bytes. Neat!
+Once that WebSockets connection is open, data sent along the pipe requires *hardly any metadata at all*, usually less than about 6 bytes. Neat!
 
 What does all of this mean to us though? Not a whole lot. You could easily do some fancy math here to prove that, since you're eliminating about 2KB of data *per message*, at Google scale you could be saving petabytes of bandwidth. Honestly, I think the savings here are going to vary a lot from application to application, and unless you're at Top 10,000 on Alexa scale, any savings from this might amount to a few bucks on your AWS bill.
 
@@ -125,9 +125,9 @@ Action Cable was [announced at RailsConf 2015 in DHH's keynote](https://www.yout
 
 > "If you can make WebSockets even less work than polling, why wouldn't you do it?"
 
-That's a great mission statement for Action Cable, really. If WebSockets were as easy as polling, we'd all be using it. Continuous updates are just simply better than 3-second updates.  If we can get continuous updates without paying any cost, than we should do that.
+That's a great mission statement for Action Cable, really. If WebSockets were as easy as polling, we'd all be using it. Continuous updates are just simply better than 3-second updates.  If we can get continuous updates without paying any cost, then we should do that.
 
-So, that's our yardstick - is Action Cable as easy to use (or easier) than polling?
+So, that's our yardstick - is Action Cable as easy (or easier) to use than polling?
 
 ### API Overview
 
@@ -135,7 +135,7 @@ Action Cable provides the following:
 
 * A "Cable" or "Connection", a single WebSocket connection from client to server. It's worthwhile to note that Action Cable assumes you will only have one WebSocket connection, and you'll send all the data from your application along different...
 * "Channels" - basically subdivisions of the "Cable". A single "Cable" connection has many "Channels".
-* A "Broadcaster" - Action Cable provides it's own server. Yes, you're going to be running another server process now. Essentially, the Action Cable server just uses Redis' pubsub functions to keep track of what's been broadcasted on what cable and to whom.
+* A "Broadcaster" - Action Cable provides its own server. Yes, you're going to be running another server process now. Essentially, the Action Cable server just uses Redis' pubsub functions to keep track of what's been broadcasted on what cable and to whom.
 
 Action Cable essentially provides just one class, `Action Cable::Channel::Base`. You're expected to subclass it and make your own Cables, just like ActiveRecord models or ActionController.
 
@@ -207,12 +207,11 @@ A couple of things to notice here:
 
 Overall, I think the API is pretty slick. We have that very Rails-y feel of a Cable's class methods being exposed to the client automatically, the Cable's class name becoming the name of the channel, et cetera.
 
-Yet, this does feel like a lot of code to me. And, in addition, you're going to have write more Javascript than what you have above to connect everything together. Not to mention that now we've got a Redis dependency that we didn't have before.
+Yet, this does feel like a lot of code to me. And, in addition, you're going to have to write more JavaScript than what you have above to connect everything together. Not to mention that now we've got a Redis dependency that we didn't have before.
 
 What I didn't show above is some things that Action Cable gives you for free, like a 3-second heartbeat on all connections. If a client can't be contacted, we automatically disconnect, calling the `unsubscribe` callback on our Channel class.
 
-In addition, [the code, as it stands right now](https://github.com/rails/actioncable), is a joy to read. Short, focused classes with well-named and terse methods. In addition, it
-'s extremely well documented. DHH ain't no slouch. It's a fast read too, weighing in at about 850 lines of Ruby and 200 lines of CoffeeScript.
+In addition, [the code, as it stands right now](https://github.com/rails/actioncable), is a joy to read. Short, focused classes with well-named and terse methods. In addition, it's extremely well documented. DHH ain't no slouch. It's a fast read too, weighing in at about 850 lines of Ruby and 200 lines of CoffeeScript.
 
 ## Performance and Scaling
 
@@ -242,7 +241,7 @@ As you can see, Action Cable slows linearly in response to more concurrent conne
 | 30  | 89ms |
 | 300 | 855 ms |
 
-Interestingly, these numbers are slightly better than a [node.js application I found](https://github.com/sitegui/nodejs-websocket/blob/master/samples/chat/server.js), which seemed to completely crumple under higher load. Here's the results against this node.js chat app:
+Interestingly, these numbers are slightly better than a [node.js application I found](https://github.com/sitegui/nodejs-websocket/blob/master/samples/chat/server.js), which seemed to completely crumple under higher load. Here are the results against this node.js chat app:
 
 | Simultaneous WebSocket connections | Mean connection time |
 | -------- | -------- |
@@ -362,7 +361,7 @@ Overall, I'm left with a question: I know *developers* want to use WebSockets, b
 
 I'm not sure if Action Cable is easier to use than polling (yet). I'll leave that as an exercise to the reader - after all, it's a subjective question. You can determine that for yourself.
 
-But I think providing Rails developers access to WebSockets is a little bit like showing up a restaurant and, when you order a sandwich, being told to go make it yourself in the back. WebSockets are, fundamentally, a *transportation* layer, not an *application* in themselves.
+But I think providing Rails developers access to WebSockets is a little bit like showing up at a restaurant and, when you order a sandwich, being told to go make it yourself in the back. WebSockets are, fundamentally, a *transportation* layer, not an *application* in themselves.
 
 Let's return to the three use cases for WebSockets I cited above and see how Action Cable performs on each:
 
