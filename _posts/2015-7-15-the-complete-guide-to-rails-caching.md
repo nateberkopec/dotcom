@@ -149,7 +149,7 @@ For example, let's say I have a Todo item. I can cache it like this:
 
 ```
 <% todo = Todo.first %>
-<% cache(todo) %>
+<% cache(todo) do %>
   ... a whole lot of work here ...
 <% end %>
 ```
@@ -189,7 +189,7 @@ Don't be afraid of the fancy name - the DHH-named caching technique isn't very c
 We all know what Russian dolls look like - one doll contained inside the other. Russian doll caching is just like that - we're going to stack cache fragments inside each other. Let's say we have a list of Todo elements:
 
 ```
-<% cache('todo_list') %>
+<% cache('todo_list') do %>
   <ul>
     <% @todos.each do |todo| %>
       <% cache(todo) do %>
