@@ -76,7 +76,7 @@ New Relic uses a couple of terms that we'll need to define:
 
 The web transaction response time graph is one of the most important on NewRelic, and forms the broadest possible picture of the backend performance of your app. NewRelic defaults to 30 minutes as the the timeframe, but I immediately change this to the longest interval available - preferably about a month, although 7 days will do.
 
-The first thing I'll look at here is the app server and browser response averages. Here's some rules of thumb for what you should expect these numbers to be in an average Rails application:
+The first thing I'll look at here is the app server and browser response averages. Here are some rules of thumb for what you should expect these numbers to be in an average Rails application:
 
 | App server avg response time | Status |
 | -------- | -------- |
@@ -103,7 +103,7 @@ Note that most browser load times are 1-3 seconds, while most application server
 
 Next, I'm considering the shape of the response time graph. Does the app seem to slow down at certain times of day or during deploys?
 
-{% marginnote "<img src='http://s16.postimg.org/qh5dus7lx/Screen_Shot_2015_10_14_at_8_11_41_PM.png'></img>" %} The most important part of this graph, though, is to figure out how much time goes to what part of the stack. Here's a typical Ruby application - most of it's time is spent in Ruby. If I see an app that spends a lot of time in the database, web external, or other processes, I know there's a problem. Most of your time should be spent in Ruby (running Ruby code is usually the slowest part of your app!). If, for example, I see a lot of time in web external, I know there's probably a controller or view that's waiting, synchronously, on an external API. That's almost never necessary and I'd work to remove that. A lot of time in request queueing means you need more servers, because requests are spending too much time waiting for an open application instance.
+{% marginnote "<img src='http://s16.postimg.org/qh5dus7lx/Screen_Shot_2015_10_14_at_8_11_41_PM.png'></img>" %} The most important part of this graph, though, is to figure out how much time goes to what part of the stack. Here's a typical Ruby application - most of its time is spent in Ruby. If I see an app that spends a lot of time in the database, web external, or other processes, I know there's a problem. Most of your time should be spent in Ruby (running Ruby code is usually the slowest part of your app!). If, for example, I see a lot of time in web external, I know there's probably a controller or view that's waiting, synchronously, on an external API. That's almost never necessary and I'd work to remove that. A lot of time in request queueing means you need more servers, because requests are spending too much time waiting for an open application instance.
 
 #### Percentiles and Histograms
 
@@ -113,7 +113,7 @@ Most Ruby apps response time histograms look like an power curve. Remember what 
 
 ### What realm of RPM are we playing in?
 
-{% marginnote "<img src='http://www.gifbin.com/bin/032012/1332955794_big_domino_pyramid_collapses.gif'></img><br><i>What it looks like optimizing a high-scale app in production</i>" %}  It's always helpful to check what "order of magnitude" we're at as far as scale. Here's my rules of thumb:
+{% marginnote "<img src='http://www.gifbin.com/bin/032012/1332955794_big_domino_pyramid_collapses.gif'></img><br><i>What it looks like optimizing a high-scale app in production</i>" %}  It's always helpful to check what "order of magnitude" we're at as far as scale. Here are my rules of thumb:
 
 | Requests per minute | Scale |
 | -------- | -------- |
@@ -144,7 +144,7 @@ Here's some symptoms you might see here:
 
 ## External Services
 
-{% marginnote "<img src='http://i.imgur.com/2oiZrCk.png'></img>" %} What I'm looking for here is to make sure that there aren't any external services being pinged during a request. Sometimes that's inevitable (payment processing) but usually it is.
+{% marginnote "<img src='http://i.imgur.com/2oiZrCk.png'></img>" %} What I'm looking for here is to make sure that there aren't any external services being pinged during a request. Sometimes that's inevitable (payment processing) but usually it isn't necessary.
 
 Most Ruby applications will block on network requests. For example, if to render my cool page, my controller action tries to request something from the Twitter API (say I grab a list of tweets), the end user has to wait until the Twitter API responds before the application server even returns a response. This can delay page loading by 200-500ms *on average*, with 95th percentile times reaching 20 seconds or more, depending on what your timeouts are set at.
 
@@ -160,7 +160,7 @@ In addition, I'm not going to cover the Reports, as they're part of New Relic's 
 
 ## Browser / Real user monitoring (RUM)
 
-{% marginnote "<img src='http://i.imgur.com/UyLFqvw.png'></img>" %} Remember how we applied an 80/20 mindset to the top offenders in the web transactions tab? We want to do the same thing here. Change the timescale on the main graph to the longest available.   Instead of the percentile graph (which is the default view), change it to the "Browser page load time" graph that breaks average load time down by it's components.
+{% marginnote "<img src='http://i.imgur.com/UyLFqvw.png'></img>" %} Remember how we applied an 80/20 mindset to the top offenders in the web transactions tab? We want to do the same thing here. Change the timescale on the main graph to the longest available.   Instead of the percentile graph (which is the default view), change it to the "Browser page load time" graph that breaks average load time down by its components.
 
 * **Request queueing** Same as the web graph. Notice how little of an impact it usually has on a typical Ruby app - most queueing times are something like 10-20ms, which is just a minuscule part of the average 5 second page load.
 * **Web application** This is the entire time taken by your app to process a request. Also notice how little time this takes out of the entire stack required to render a webpage.
