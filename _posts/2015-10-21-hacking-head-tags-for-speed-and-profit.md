@@ -7,7 +7,7 @@ summary: One of the most important parts of any webpage's performance is the con
 readtime: 2754 words/13 minutes
 ---
 
-{% marginnote "<img src='http://i.imgur.com/2K3eIZI.gif'></img><br><i>\"What's that? The site takes 15 seconds to load on mobile? <br>Sorry, but Marketing says I gotta put Mixpanel in here first.\"</i>" %} Most of us developers settle for page load times somewhere between 3 and 7 seconds. We open up the graph in NewRelic or [webpagetest.org](webpagetest.org), sigh, and then go back to implementing that new feature that the marketing people *absolutely must have deployed yesterday*.
+{% marginnote "<img src='http://i.imgur.com/2K3eIZI.gif'></img><br><i>\"What's that? The site takes 15 seconds to load on mobile? <br>Sorry, but Marketing says I gotta put Mixpanel in here first.\"</i>" %} Most of us developers settle for page load times somewhere between 3 and 7 seconds. We open up the graph in NewRelic or [webpagetest.org](http://webpagetest.org), sigh, and then go back to implementing that new feature that the marketing people *absolutely must have deployed yesterday*.
 
 Little do we realize, perceived front-end load times closer to half a second are possible for most (if not all) websites with very little effort.
 
@@ -122,13 +122,19 @@ Well, no.
 
 The `async` tag just tells the browser that this particular script *isn't required to render the page*. This is perfect for most 3rd-party marketing scripts, like Google Analytics or Gaug.es. In addition, if you're really good (and you're not a Javascript single-page-app), you may be able to make every single external script on your page `async`.
 
+`async` downloads the script file without stoppping parsing of the document - the script tag is no longer *synchronous* with the
+
 There's also this `defer` attribute, which has slightly different effects. What you need to know is that Internet Explorer 9 and below doesn't support `async`, but it does support `defer`, which provides a similar functionality. It never hurts to just add the `defer` attribute after `async`, like so:
 
 ```html
 <script type="text/javascript" async defer src="//some.shitty.thirdpartymarketingsite.com/craptracker.js"></script>
 ```
 
-So **add `async defer` to every script tag that isn't required for the page to render**. {% sidenote 5 "The caveat is that there's no guarantee as to the order that these scripts will be evaluated in, or even when they'll be evaluated. Async is hard." %}
+That way IE9 and below will use `defer`, and everyone who's using a browser from after the Cold War will use `async`.
+
+[Here's a great visual explanation of the differences between async and defer](http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html).
+
+So **add `async defer` to every script tag that isn't required for the page to render**. {% sidenote 5 "The caveat is that there's no guarantee as to the order that these scripts will be evaluated in when using async, or even when they'll be evaluated. Even defer, which is *supposed* to execute scripts in order, sometimes won't (bugs, yay). Async is hard." %}
 
 ## Stylesheets first
 
