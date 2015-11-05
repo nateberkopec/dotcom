@@ -1,6 +1,5 @@
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
@@ -9,13 +8,9 @@
   <link rel="stylesheet" href="{{ "/assets/css/base.css" | prepend: site.baseurl }}">
   <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
 
-  <!-- Load up MathJax script if needed ... specify in /_data/options.yml file-->
-  {% if site.data.options.mathjax %}
-  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  {% endif %}
-
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
-  <script src="//load.sumome.com/" data-sumo-site-id="42dd0948b286eb5047164649e9252122ad23e4531d788ca4e341899dc37cd903" async="async"></script>
+  <link href='http://fonts.gstatic.com' rel='preconnect' crossorigin>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400' rel='stylesheet'>
 </head>
