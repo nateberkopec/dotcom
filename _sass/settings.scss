@@ -1,14 +1,3 @@
-/* This file contains all the constants for colors and font styles */
-
-/*-- Global stuff with fonts, background colors,etc --*/
-
-$body-font:   ETBembo, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-// Note that Gill Sans is the top of the stack and corresponds to what is used in Tufte's books
-// However, it is not a free font, so if it is not present on the computer that is viewing the webpage
-// The free Google 'Lato' font is used instead. It is similar.
-$sans-font:  "Gill Sans", "Gill Sans MT", "Lato", Calibri, sans-serif;
-$code-font: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-$url-font: "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
 $contrast-color: #a00000;
 $border-color: #333333;
 
@@ -43,7 +32,7 @@ $brand-danger:          #d9534f !default;
 //** Background color for `<body>`.
 $body-bg:               #fff !default;
 //** Global text color on `<body>`.
-$text-color:            rgba(0, 0, 0, 0.8) !default;
+$text-color:            $gray-dark !default;
 
 //** Global textual link color.
 $link-color:            $brand-primary !default;
@@ -188,6 +177,11 @@ $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
 
 
 //== Forms
@@ -402,7 +396,7 @@ $navbar-default-toggle-icon-bar-bg:        #888 !default;
 $navbar-default-toggle-border-color:       #ddd !default;
 
 
-// Inverted navbar
+//=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
 $navbar-inverse-bg:                         #222 !default;
@@ -503,6 +497,7 @@ $jumbotron-color:                inherit !default;
 $jumbotron-bg:                   $gray-lighter !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
+$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 
 
 //== Form states and alerts

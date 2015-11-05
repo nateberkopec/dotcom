@@ -23,7 +23,13 @@ editor: subl
 git:
   branch: master
 
+gems:
+  - jekyll-assets
+  - bootstrap-sass
+
 assets:
+  js_compressor:  uglifier
+  css_compressor: sass
   prefix: "/assets"
   assets:
     - "*.png"
@@ -31,3 +37,7 @@ assets:
   digest: true
   sources:
     - "assets"
+    - "assets/css"
+    - "assets/img"
+    - "_sass"
+

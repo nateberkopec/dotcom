@@ -2,6 +2,12 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.8)
+    autoprefixer-rails (6.0.3)
+      execjs
+      json
+    bootstrap-sass (3.3.5.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.3.0)
     colorator (0.1)
     execjs (2.6.0)
     fastimage (1.7.0)
@@ -70,6 +76,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass
   jekyll
   jekyll-assets
   redcarpet (>= 2.0)

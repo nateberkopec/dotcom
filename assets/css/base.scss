@@ -1,12 +1,10 @@
----
----
-
-@import "bootstrap/mixins";
+// Core variables and mixins
 @import "settings";
+@import "bootstrap/mixins";
 
 // Reset and dependencies
 @import "bootstrap/normalize";
-@import "bootstrap/print";
+// @import "bootstrap/print";
 // @import "bootstrap/glyphicons";
 
 // Core CSS
@@ -42,16 +40,15 @@
 // @import "bootstrap/close";
 
 // Components w/ JavaScript
-@import "bootstrap/modals";
-@import "bootstrap/tooltip";
-@import "bootstrap/popovers";
-@import "bootstrap/carousel";
+// @import "bootstrap/modals";
+// @import "bootstrap/tooltip";
+// @import "bootstrap/popovers";
+// @import "bootstrap/carousel";
 
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 
-@import "fonts";
 @import "syntax-highlighting";
 @import "homepage";
 
