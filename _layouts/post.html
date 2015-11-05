@@ -5,11 +5,10 @@ layout: default
   <div class="col-md-7 post">
     <article>
       <h1>{{ page.title | titleize }}</h1>
-      <div style="margin-bottom: 30px;height: 40px;margin-top: -24px;">
-        <div style="float: left">by <b>Nate Berkopec</b> (<a target="_blank" href="http://twitter.com/nateberkopec">@nateberkopec</a>)</div>
-        <div style="float: right">{% include social-bar.html %}</div>
+      <div style="margin-top: -24px;">
+        <div>by <b>Nate Berkopec</b> (<a target="_blank" href="http://twitter.com/nateberkopec">@nateberkopec</a>)</div>
+        {% include social-bar.html %}
       </div>
-      <div class="clearfix"></div>
 
       {% if page.summary %}
 
@@ -29,32 +28,31 @@ layout: default
 
       {% include mailchimp.html %}
     </article>
-    <div class="row">
-      <div class="col-md-12">
-        <h2>More Posts</h2>
-      </div>
-    </div>
-
-    <div class="row">
-      {% assign counter = 0 %}
-      {% assign maxPostCount = 3 %}
-      {% for post in site.posts %}
-        {% if post.date < site.time and counter < maxPostCount %}
-          {% if post.title != page.title %}
-            <div class="col-md-12">
-              <h3>
-                <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-              </h3>
-              <p>
-                {{ post.content | strip_html | truncatewords: 50 }}
-              </p>
-              <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-            </div>
-            {% assign counter=counter | plus:1 %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>More Posts</h2>
   </div>
 </div>
 
+<div class="row">
+  {% assign counter = 0 %}
+  {% assign maxPostCount = 4 %}
+  {% for post in site.posts %}
+    {% if post.date < site.time and counter < maxPostCount %}
+      {% if post.title != page.title %}
+        <div class="col-md-6">
+          <h3>
+            <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          </h3>
+          <p>
+            {{ post.content | strip_html | truncatewords: 50 }}
+          </p>
+          <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
+        </div>
+        {% assign counter=counter | plus:1 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>

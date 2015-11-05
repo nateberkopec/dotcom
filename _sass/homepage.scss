@@ -1,7 +1,17 @@
 @import url(http://fonts.googleapis.com/css?family=Oswald:400);
 
 #blowup-text {
-  font-size: 200px;
+  font-size: 175px;
+  color: #000;
+  font-family: 'Oswald', sans-serif;
+  line-height: .9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+#blowup-text-md {
+  font-size: 6.5em;
   color: #000;
   font-family: 'Oswald', sans-serif;
   line-height: .9;
