@@ -22,3 +22,12 @@ page:
 editor: subl
 git:
   branch: master
+
+assets:
+  prefix: "/assets"
+  assets:
+    - "*.png"
+    - "base.css"
+  digest: true
+  sources:
+    - "assets"
