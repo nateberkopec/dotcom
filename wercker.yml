@@ -46,8 +46,8 @@ deploy:
         opts: "--exclude '*.*' --add-header='Content-Encoding:gzip' --include '*.html' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
         source_dir: _site/
     - edgecaseadmin/install-aws-cli:
-        key: $KEY
-        secret: $SECRET
+        key: $WERCKER_S3SYNC_KEY_ID
+        secret: $WERCKER_S3SYNC_KEY_SECRET
     -
       script:
         code: |
