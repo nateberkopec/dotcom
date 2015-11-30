@@ -2,5 +2,5 @@
   name: Twitter
 - link: //github.com/nateberkopec
   name: Github
-- link: /feed
+- link: /feed.xml
   name: RSS
