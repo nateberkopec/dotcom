@@ -25,20 +25,24 @@ build:
             code: bundle exec jekyll build --trace
 deploy:
   steps:
-    - s3sync:
+    -
+      s3sync:
+        bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        bucket_url: $URL
+        opts: "--exclude '*.html' --exclude '*.css' --exclude '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
         source_dir: _site/
-        opts: --exclude '*.html' --exclude '*.css' --exclude '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index
-    - script:
-        name: gzip css/html/js
+    -
+      script:
         code: |
-          find _site | egrep "\.(html|js|css)$" | xargs -I{} gzip -n -9 {}
-          find _site | egrep "\.(html|js|css)\.gz$" | xargs -I{} bash -c 'FILE="{}"; mv ${FILE} ${FILE%.*}'
-    - s3sync:
+            find _site | egrep "\.(html|js|css)$" | xargs -I{} gzip -n -9 {}
+            find _site | egrep "\.(html|js|css)\.gz$" | xargs -I{} bash -c 'FILE="{}"; mv ${FILE} ${FILE%.*}'
+        name: "gzip css/html/js"
+    -
+      s3sync:
+        bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        bucket_url: $URL
+        opts: "--exclude '*.*' --add-header='Content-Encoding: gzip' --include '*.html' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
         source_dir: _site/
-        opts: --exclude '*.*' --add-header='Content-Encoding: gzip' --include '*.html' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index
+
