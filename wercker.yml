@@ -43,14 +43,14 @@ deploy:
         bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        opts: "--exclude '*.*' --add-header 'Content-Encoding:gzip' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index  --add-header 'Cache-Control: public, max-age=31536000' --add-header 'Expires: 31536000'"
+        opts: "--exclude '*.*' --add-header \"Content-Encoding:gzip\" --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index --cache-control='max-age=2592000'"
         source_dir: _site/
     -
       s3sync:
         bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        opts: "--exclude '*.*' --add-header 'Content-Encoding:gzip' --include '*.html' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
+        opts: "--exclude '*.*' --add-header \"Content-Encoding:gzip\" --include '*.html' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
         source_dir: _site/
 
 
