@@ -35,7 +35,7 @@ deploy:
     -
       script:
         code: |
-            find _site | egrep "\.(html|js|css)$" | xargs -I{} gzip -n -9 {}
+            find _site | egrep "\.(html|js|css)$" | xargs -I{} gzip -n -f -9 {}
             find _site | egrep "\.(html|js|css)\.gz$" | xargs -I{} bash -c 'FILE="{}"; mv ${FILE} ${FILE%.*}'
         name: "gzip css/html/js"
     -
