@@ -2,7 +2,7 @@
 layout: post
 title:  "NASA Problems and LEGO Problems"
 date:   2011-09-10 12:00:00
-categories:
+categories: business
 ---
 
 NASA problems require many years and massive teams to solve. It took us over 10 years and 21 manned missions to gain enough knowledge and experience to send a man to the moon. That’s a lot of work.

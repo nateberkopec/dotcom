@@ -57,7 +57,7 @@ title: Nate Berkopec
           <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h3>
         <p>
-          {{ post.content | strip_html | truncatewords: 50 }}
+          {{ post.summary | strip_html | truncatewords: 50 }}
         </p>
         <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
       </div>
