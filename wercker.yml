@@ -30,4 +30,15 @@ deploy:
         key_secret: $SECRET
         bucket_url: $URL
         source_dir: _site/
-        opts: --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index
+        opts: --exclude '*.html' --exclude '*.css' --exclude '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index
+    - script:
+        name: gzip css/html/js
+        code: |
+          find _site | egrep "\.(html|js|css)$" | xargs -I{} gzip -n -9 {}
+          find _site | egrep "\.(html|js|css)\.gz$" | xargs -I{} bash -c 'FILE="{}"; mv ${FILE} ${FILE%.*}'
+    - s3sync:
+        key_id: $KEY
+        key_secret: $SECRET
+        bucket_url: $URL
+        source_dir: _site/
+        opts: --exclude '*.*' --add-header='Content-Encoding: gzip' --include '*.html' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index
