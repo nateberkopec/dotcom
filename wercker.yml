@@ -49,7 +49,7 @@ deploy:
     -
       script:
         code: |
-            aws s3 cp s3://mybucket/ s3://mybucket/ --exclude "*" --include "*.jpg" --include "*.png" --include "*.css" --include "*.js" --recursive --metadata-directive REPLACE --expires 2034-01-01T00:00:00Z --acl public-read --cache-control max-age=2592000,public
+            aws s3 cp $WERCKER_S3SYNC_BUCKET_URL $WERCKER_S3SYNC_BUCKET_URL --exclude "*" --include "*.jpg" --include "*.png" --include "*.css" --include "*.js" --recursive --metadata-directive REPLACE --expires 2034-01-01T00:00:00Z --acl public-read --cache-control max-age=2592000,public
         name: "set cache control"
 
 
