@@ -30,7 +30,7 @@ deploy:
         bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        opts: "--exclude '*.html' --exclude '*.css' --exclude '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
+        opts: "--exclude '*.html' --exclude '*.css' --exclude '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index --cache-control='max-age=2592000'"
         source_dir: _site/
     -
       script:
@@ -43,18 +43,15 @@ deploy:
         bucket_url: $URL
         key_id: $KEY
         key_secret: $SECRET
-        opts: "--exclude '*.*' --add-header='Content-Encoding:gzip' --include '*.html' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
+        opts: "--exclude '*.*' --add-header='Content-Encoding:gzip' --include '*.css' --include '*.js' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index --cache-control='max-age=2592000'"
         source_dir: _site/
-    - edgecaseadmin/install-aws-cli:
-        key: $KEY
-        secret: $SECRET
     -
-      script:
-        code: |
-            aws s3 cp $URL $URL --exclude "*" --include "*.jpg" --include "*.png" --include "*.css" --include "*.js" --recursive --metadata-directive REPLACE --expires 2034-01-01T00:00:00Z --acl public-read --cache-control max-age=2592000,public
-        name: "set cache control"
-
-
+      s3sync:
+        bucket_url: $URL
+        key_id: $KEY
+        key_secret: $SECRET
+        opts: "--exclude '*.*' --add-header='Content-Encoding:gzip' --include '*.html' --acl-public --cf-invalidate --delete-removed --cf-invalidate-default-index"
+        source_dir: _site/
 
 
 
