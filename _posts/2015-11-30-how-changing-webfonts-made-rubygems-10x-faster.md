@@ -53,7 +53,7 @@ Using these rules-of-thumb, I decided we had some work to do to improve Rubygems
 
 ## Auditing font usage
 
-WebFonts are awesome - they really make the web beautiful. The web is typography {% sidenote 4 "[Web Design is 95% Typography](https://ia.net/know-how/the-web-is-all-about-typography-period)" %}, so changing fonts can have a huge effect on the character and feel of a website. For these reasons, WebFonts have become extremely popular *very* quickly - HTTP Archive estimates about 51% of sites currently use WebFonts {% marginnote "![HTTP Archive](http://imgur.com/KzlGyN9.png)<br> [via HTTP Archive](http://httparchive.org/trends.php#perFonts)" %}, and that number is still growing.
+WebFonts are awesome - they really make the web beautiful. The web is typography {% sidenote 4 "[Web Design is 95% Typography](https://ia.net/know-how/the-web-is-all-about-typography-period)" %}, so changing fonts can have a huge effect on the character and feel of a website. For these reasons, WebFonts have become extremely popular *very* quickly - HTTP Archive estimates about 51% of sites currently use WebFonts {% marginnote "![HTTP Archive](https://imgur.com/KzlGyN9.png)<br> [via HTTP Archive](http://httparchive.org/trends.php#perFonts)" %}, and that number is still growing.
 
 WebFonts are here to stay, but that doesn't mean it's impossible to use them poorly.
 
@@ -92,7 +92,7 @@ So I had my plan:
 
 ## Changing to Google Fonts
 
-{% marginnote "![https://www.google.com/logos/doodles/2014/world-cup-2014-47-5450493904027648.5-hp.gif](http://www.google.com/logos/doodles/2014/world-cup-2014-47-5450493904027648.5-hp.gif)" %} Immediately, I knew Typekit wasn't going to cut it for Rubygems.org. Rubygems.org is an open-source project with many collaborators, but issues with fonts had to go through one person (or a cabal of a few people), the person that had access to the Typekit account. With an OSS font, or a solution like Google Fonts (where anyone can create a new font bundle/there is no 'account'), we could all debug and work on the site's fonts.
+{% marginnote "![https://www.google.com/logos/doodles/2014/world-cup-2014-47-5450493904027648.5-hp.gif](https://www.google.com/logos/doodles/2014/world-cup-2014-47-5450493904027648.5-hp.gif)" %} Immediately, I knew Typekit wasn't going to cut it for Rubygems.org. Rubygems.org is an open-source project with many collaborators, but issues with fonts had to go through one person (or a cabal of a few people), the person that had access to the Typekit account. With an OSS font, or a solution like Google Fonts (where anyone can create a new font bundle/there is no 'account'), we could all debug and work on the site's fonts.
 
 That reason - the "accountless" and FOSS nature of the fonts served by Google Fonts - initially lead me to use Google Fonts for Rubygems.org. Little did I realize, though, that Google Fonts offers a number of performance optimizations over Typekit that would end up making a huge difference for us.
 
