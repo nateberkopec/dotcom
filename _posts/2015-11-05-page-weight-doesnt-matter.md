@@ -13,15 +13,15 @@ There's one universal law of front-end performance - **less is more**. Simple pa
 
 And yet, it's trivial to find a website whose complexity seems to reach astronomical levels. {% sidenote 1 "Literally. The Apollo Guidance Computer had just 64 KB of ROM, but most webpages require more than 1MB of data to render. There are some webpages that are actually 100x as complex as the software that took us to the moon." %} It's perhaps telling that media and news sites tend to be the worst here - most media sites in 2015 take ages to load, not to mention all the time you spend clicking past their paywall popups (NYTimes) or full-page advertisements (Forbes).
 
-{% marginnote "<img src='http://i.imgur.com/lnAzS1o.jpg'></img><br><i>\"Dear Adobe: Flash is a dumpster fire. Love, Steve.\"</i>" %} Remember when [Steve Jobs said Apple's mobile products would never support Flash?](http://www.apple.com/hotnews/thoughts-on-flash/) For a year or two there, it was a bit of a golden age in web performance - broadband was becoming widespread, 4G started to come on the scene, and, most importantly, websites started dropping Flash cruft. The "loading!" screens and unnecessarily complicated navigation schemes became something of yesteryear.
+{% marginnote "<img src='https://i.imgur.com/lnAzS1o.jpg'></img><br><i>\"Dear Adobe: Flash is a dumpster fire. Love, Steve.\"</i>" %} Remember when [Steve Jobs said Apple's mobile products would never support Flash?](http://www.apple.com/hotnews/thoughts-on-flash/) For a year or two there, it was a bit of a golden age in web performance - broadband was becoming widespread, 4G started to come on the scene, and, most importantly, websites started dropping Flash cruft. The "loading!" screens and unnecessarily complicated navigation schemes became something of yesteryear.
 
-That, is, until the marketing department figured out how to use Javascript. The Guardian's homepage sets advertising tracking cookies across 4 different partner domains. Business Insider thought to one-up their neighbors across the pond and sets **cookies across 17 domains**, requires **284 requests** (to nearly 100 unique domains) and a **4.9MB download** which took a full *9 seconds* to load on my cable connection, which is a fairly average broadband ~20 megabit pipe. {% marginnote "<img src='http://i.imgur.com/L8K5kUM.gif'></img><br><i>\"They think Business Insider is a news site and not just an ad delivery mechanism? That's rich!\"</i>" %} Business Insider is, ostensibly, a news site. The purpose of the Business Insider is to deliver text content. Why does that require 5 MB of *things which are not text*?
+That, is, until the marketing department figured out how to use Javascript. The Guardian's homepage sets advertising tracking cookies across 4 different partner domains. Business Insider thought to one-up their neighbors across the pond and sets **cookies across 17 domains**, requires **284 requests** (to nearly 100 unique domains) and a **4.9MB download** which took a full *9 seconds* to load on my cable connection, which is a fairly average broadband ~20 megabit pipe. {% marginnote "<img src='https://i.imgur.com/L8K5kUM.gif'></img><br><i>\"They think Business Insider is a news site and not just an ad delivery mechanism? That's rich!\"</i>" %} Business Insider is, ostensibly, a news site. The purpose of the Business Insider is to deliver text content. Why does that require 5 MB of *things which are not text*?
 
 Unfortunately, it seems, the cry of "complexity is the enemy!" is lost on the ones setting the technical agenda. While trying to load every single tracking cookie possible on your users, you've steered them away by making your site slow on *any* reasonable broadband connection, and nearly *impossible* on any mobile connection.
 
 Usually, the boogeyman that gets pointed at is *bandwidth*: users in low-bandwidth areas (3G, developing world) are getting shafted.
 
-{% marginnote "<img src='http://i.imgur.com/AU7LLZi.jpg'></img><br><i>4 divided by 20 isn't 9...</i>" %}But the math doesn't *quite* work out. Akamai puts the global connection speed average at **3.9 megabits per second**. So wait a second - why does Business Insider take 9 seconds to load on my 20 megabit pipe, when it's only 4.9MB? If I had an average connection, according to Akamai, shouldn't Business Insider load in 2 seconds, tops?
+{% marginnote "<img src='https://i.imgur.com/AU7LLZi.jpg'></img><br><i>4 divided by 20 isn't 9...</i>" %}But the math doesn't *quite* work out. Akamai puts the global connection speed average at **3.9 megabits per second**. So wait a second - why does Business Insider take 9 seconds to load on my 20 megabit pipe, when it's only 4.9MB? If I had an average connection, according to Akamai, shouldn't Business Insider load in 2 seconds, tops?
 
 The secret is that "page weight", broadly defined as the simple total file size of a page and all of it's sub-resources (images, CSS, JS, etc), isn't the problem. **Bandwidth is not the problem, and the performance of the web will not improve as broadband access becomes more widespread.**
 
@@ -41,7 +41,7 @@ Setting up a typical HTTPS connection can involve *5.5 round-trips*. That's like
 
 The smart ones among you may already see the solution - well, Nate, 165 milliseconds per connection isn't a problem! We'll just parallelize the connections! Boom! 100 connections opened in 165 milliseconds!
 
-The problem is that HTML *doesn't work this way by default*. {% marginnote "<img src='http://i.imgur.com/mHImMLs.png'></img><br><i>Business Insider's network utilization over time - hardly pegged at 100%.</i>" %}
+The problem is that HTML *doesn't work this way by default*. {% marginnote "<img src='https://i.imgur.com/mHImMLs.png'></img><br><i>Business Insider's network utilization over time - hardly pegged at 100%.</i>" %}
 
 We'd like to imagine that the way a webpage loads is this:
 
@@ -54,7 +54,7 @@ Here's what actually happens:
 
 1. Browser opens connection to yoursite.com, does DNS/TCP/SSL setup.
 2. Browser downloads the document (HTML).
-3. Browser starts parsing the document. When the parser encounters a subresource, it opens a connection and downloads it. {% marginnote "<img src='http://i.imgur.com/vR44K2h.jpg'></img><br><i>Parse the document? Nah man, I'm gonna wait for this script to download and execute.</i>" %} If the subresource is an external script tag, the parser stops, waits until it the script has downloaded, executes the entire script, and then moves on.
+3. Browser starts parsing the document. When the parser encounters a subresource, it opens a connection and downloads it. {% marginnote "<img src='https://i.imgur.com/vR44K2h.jpg'></img><br><i>Parse the document? Nah man, I'm gonna wait for this script to download and execute.</i>" %} If the subresource is an external script tag, the parser stops, waits until it the script has downloaded, executes the entire script, and then moves on.
 4. As soon as the parser stops and has to wait for an external script to download, it sends ahead something called a *preloader*. The preloader *may* notice and begin downloading resources *if* it understands how to (hint: a very popular Javascript pattern prevents this).
 
 Thanks to these little wrinkles, web page loads often have new connections opening *very* late in a page load - right before the end even! Ideally, the browser would open all of those connections like in our first scenario - immediately after the document is downloaded. We want to maximize network utilization across the life of the webpage load process.
@@ -87,7 +87,7 @@ That said, there are ways to help the preloader and there are ways to hinder it.
 
 ### Stop inserting scripts with "async" script-injection
 
-{% marginnote "<img src='http://i.imgur.com/G3DhZwf.gif'></img><br><i>It's just one more script tag!</i>" %}The marketing department says you need to integrate your site with SomeBozoAdService. They said it's really easy - you just have to "add five lines of code!". You go to SomeBozoAdService's developer section, and find that they tell you to insert this into your document somewhere:
+{% marginnote "<img src='https://i.imgur.com/G3DhZwf.gif'></img><br><i>It's just one more script tag!</i>" %}The marketing department says you need to integrate your site with SomeBozoAdService. They said it's really easy - you just have to "add five lines of code!". You go to SomeBozoAdService's developer section, and find that they tell you to insert this into your document somewhere:
 
 ```javascript
 var t = document.createElement('script');
@@ -107,7 +107,7 @@ Here's a list of other things that generally don't work with browser preloaders:
 
 * IFrames. Sometimes there's no way around using an iframe, but if you have the option - try not to. The content of the frame can't be loaded until the parser gets there.
 * @import. I'm not sure of anyone that uses @import in their production CSS, but don't. Preloaders can't start fetching `@import`ed stylesheets for you.
-* {% marginnote "<img src='http://i.imgur.com/oL7MkI0.jpg'></img><br><i>Design department: \"But we need these 90 fonts to spice up the visual interest of the page!\"</i>" %} Webfonts. Here's an interesting one. I could write a whole article on webfont speed (I should/will!), but they usually aren't preloaded. This is fixable with resource hints (we'll get to that in a second).
+* {% marginnote "<img src='https://i.imgur.com/oL7MkI0.jpg'></img><br><i>Design department: \"But we need these 90 fonts to spice up the visual interest of the page!\"</i>" %} Webfonts. Here's an interesting one. I could write a whole article on webfont speed (I should/will!), but they usually aren't preloaded. This is fixable with resource hints (we'll get to that in a second).
 * HTML5 audio/video. This is also fixable with resource hints.
 
 I've heard that in the past, preloaders wouldn't scan the body tag when blocked in the head. If that was ever true, it is no longer true in Webkit based browsers.
@@ -119,7 +119,7 @@ In addition, modern preloaders are smart enough not to request resources that ar
 The fastest HTTP request is the one that is never made. That's really all HTTP caching is for - preventing unnecessary requests. Cache control headers are really for telling clients "Hey - this resource, it's not going to change very quickly. Don't ask me again for this resource until..." That's awesome. We should do that everywhere possible.
 
 [Yet, the size of the resource cache is smaller than you might think.](http://www.guypo.com/mobile-browser-cache-sizes-round-2/) Here's the default disk cache size in modern browsers:
-{% marginnote "<img src='http://i.imgur.com/E0yJ6HR.jpg'></img><br>" %}
+{% marginnote "<img src='https://i.imgur.com/E0yJ6HR.jpg'></img><br>" %}
 
 | Browser | Cache Size (default) |
 | -------- | -------- |
@@ -168,7 +168,7 @@ Let's talk about each of these items in turn, and when or why you might use each
 
 In case you're brand new to networking, here's a review - computers don't network in terms of domain names. Instead, they use IP addresses (like `192.168.1.1`, etc). They *resolve* a hostname, like `example.com`, into an IP address. To do this, they have to go to a DNS server (for example, Google's server at `8.8.8.8`) and ask: "Hey, what's the IP address of `some-host.com`?" This connection takes time - usually somewhere between 50-100ms, although it can take much longer on mobile networks or in developing countries (500-750ms).
 
-**When to Use It:** {% marginnote "<img src='http://i.imgur.com/iTlcW8x.gif'></img><br><i>\"Stop trying to make dns-prefetch a thing!\"</i>" %}  But you may be asking - why would I ever want to resolve the DNS for a hostname and *not actually connect to that hostname*? Exactly. So forget about `dns-prefetch`, because it's cousin, `preconnect`, does exactly that.
+**When to Use It:** {% marginnote "<img src='https://i.imgur.com/iTlcW8x.gif'></img><br><i>\"Stop trying to make dns-prefetch a thing!\"</i>" %}  But you may be asking - why would I ever want to resolve the DNS for a hostname and *not actually connect to that hostname*? Exactly. So forget about `dns-prefetch`, because it's cousin, `preconnect`, does exactly that.
 
 **Browser Support**: Everything except IE 9 and below.
 
@@ -190,7 +190,7 @@ Taking a look at how Rubygems.org loads in [webpagetest.org](webpagetest.org), w
 
 Notice these these two resources, closer to the end of the page load:
 
-<img src="http://i.imgur.com/Gzb1AQg.jpg"></img>
+<img src="https://i.imgur.com/Gzb1AQg.jpg"></img>
 
 Two are related to gaug.es, an analytics tracking service, and the other is a GIF from a Typekit domain. The green bar here is time-to-first-byte - time spent waiting for a server response. But note how the analytics tracking service and the Typekit GIF have teal, orange, and purple bars as well - these bars represent time spent resolving DNS, opening a connection, and negotiating SSL, respectively. By adding a preconnect tag to the head of the document, we can move this work to the beginning of the page load, so that when the browser needs to download these resource it has a pre-warmed connection. That loads each resource ~200ms faster in this case.
 
@@ -210,7 +210,7 @@ In addition, it works very well for script-injected resources with dynamic URLs.
 
 ```<link rel="prefetch" href="//example.com/some-image.gif">```
 
-{% marginnote "<img src='http://i.imgur.com/gQq7Lru.gif'></img><br><i>Go get the resource, Chrome! Go get it, boy!</i>" %} A prefetch resource hint will hint the browser to do the following:
+{% marginnote "<img src='https://i.imgur.com/gQq7Lru.gif'></img><br><i>Go get the resource, Chrome! Go get it, boy!</i>" %} A prefetch resource hint will hint the browser to do the following:
 
 * Everything that we did to set up a connection in the `preconnect` hint (DNS/TCP/TLS).
 * But in addition, the browser will also *actually download the resource*.
@@ -256,7 +256,7 @@ We have a long way to go with performance on the web. I scraped together a littl
 
 So many sites could benefit from liberal use of some or all of these resource hints, but so few do. Most sites that do use them are just using `dns-prefetch`, which is practically useless when compared to the superior `preconnect` (how often do you really want to know the DNS resolution of a host and then *not* connect to it?).
 
-{% marginnote "<img src='http://i.imgur.com/cchNrOn.gif'></img><br>" %} I'd like to back off from the flamebait-y title off this article *just* slightly. Now that I've explained all of the different things you can do to increase network utilization during a webpage load, know that 100% utilization isn't always possible. Resource hints and the other techniques in this article *help* complex pages load faster, but thanks to many different constraints you may not be able to apply them in all situations. Page weight *does* matter - a 5MB page will be more difficult to optimize than a 500 KB one. What I'm really trying to say is that page weight *only sorta* matters.
+{% marginnote "<img src='https://i.imgur.com/cchNrOn.gif'></img><br>" %} I'd like to back off from the flamebait-y title off this article *just* slightly. Now that I've explained all of the different things you can do to increase network utilization during a webpage load, know that 100% utilization isn't always possible. Resource hints and the other techniques in this article *help* complex pages load faster, but thanks to many different constraints you may not be able to apply them in all situations. Page weight *does* matter - a 5MB page will be more difficult to optimize than a 500 KB one. What I'm really trying to say is that page weight *only sorta* matters.
 
 I hope I've demonstrated to you that page weight - while certainly *correlated* with webpage load speed, is not the final answer. You shouldn't feel like your page is doomed to slowness because The Marketing People need you to include 8 different external ad tracking services (although you should consider quitting your job if that's the case).
 

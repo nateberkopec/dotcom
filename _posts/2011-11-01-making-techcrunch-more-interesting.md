@@ -15,7 +15,7 @@ Take every TechCrunch article and randomly switch one word with another, one wor
 
 Yesterday, I tweeted:
 
-![http://i.imgur.com/9ACgE.png](http://i.imgur.com/9ACgE.png)
+![https://i.imgur.com/9ACgE.png](https://i.imgur.com/9ACgE.png)
 
 I was surprised that a reference to several highly technical or less-than-well-known thinkers would resonate with so many people. I wondered what startups would look like if instead of Markov chaining TechCrunch, you did a kind of [drunkard’s walk](http://en.wikipedia.org/wiki/Random_walk) through a corpus of business theorists, systems scientists, philosophers, and artists and let a startup pop out the other side.
 

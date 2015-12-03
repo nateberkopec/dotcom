@@ -8,7 +8,7 @@ summary: rack-mini-profiler is a powerful Swiss army knife for Rack app performa
 readtime: 3328 words/16 minutes
 ---
 
-`rack-mini-profiler` is a a performance tool for Rack applications, maintained by the talented [@samsaffron](https://twitter.com/samsaffron). [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler) provides an entire suite of tools for measuring the performance of Rack-enabled web applications, including detailed drill downs on SQL queries, server response times (with a breakdown for each template and partial), incredibly detailed millisecond-by-millisecond breakdowns of execution times with the incredible `flamegraph` feature, and will even help you track down memory leaks with its excellent garbage collection features. **I wouldn't hesitate to say that `rack-mini-profiler` is my favorite and most important tool for developing fast Ruby webapps.** {% sidenote 1 "<img src='http://i.imgur.com/DgONqEH.gif'></img>" %}
+`rack-mini-profiler` is a a performance tool for Rack applications, maintained by the talented [@samsaffron](https://twitter.com/samsaffron). [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler) provides an entire suite of tools for measuring the performance of Rack-enabled web applications, including detailed drill downs on SQL queries, server response times (with a breakdown for each template and partial), incredibly detailed millisecond-by-millisecond breakdowns of execution times with the incredible `flamegraph` feature, and will even help you track down memory leaks with its excellent garbage collection features. **I wouldn't hesitate to say that `rack-mini-profiler` is my favorite and most important tool for developing fast Ruby webapps.** {% sidenote 1 "<img src='https://i.imgur.com/DgONqEH.gif'></img>" %}
 
 The best part - `rack-mini-profiler` is designed to be run in production. Yeah! You can accurately profile production performance (say that three times fast) with `rack-mini-profiler`. Of course, it also works fine in development. But your development environment is usually a lot different than production - hardware, virtualization environments, and system configuration can all be different and play a huge part in performance. Not to mention Rails' development mode settings, like reloading classes on every request!
 
@@ -37,9 +37,9 @@ gem 'memory_profiler'
 
 `memory_profiler` will let us use `rack-mini-profiler`'s GC features.
 
-Fire up a server in development mode and hit a page. You should see the new speed badge in the upper left. {% sidenote 2 "<img src='http://i.imgur.com/3euqzxD.png'></img>" %} We'll get to what that does in a second.
+Fire up a server in development mode and hit a page. You should see the new speed badge in the upper left. {% sidenote 2 "<img src='https://i.imgur.com/3euqzxD.png'></img>" %} We'll get to what that does in a second.
 
-To see a full list of rack-mini-profiler's features and info on how to trigger them, add `?pp=help` to the end of any URL {% sidenote 3 "In more recent versions of rack-mini-profiler, there's also a 'help' button on the speed badge" %} - this prints the help screen and lists the various commands available (all used by adding to the URL query string){% marginnote "![Imgur](http://i.imgur.com/p3zgkM5.png)" %}.
+To see a full list of rack-mini-profiler's features and info on how to trigger them, add `?pp=help` to the end of any URL {% sidenote 3 "In more recent versions of rack-mini-profiler, there's also a 'help' button on the speed badge" %} - this prints the help screen and lists the various commands available (all used by adding to the URL query string){% marginnote "![Imgur](https://i.imgur.com/p3zgkM5.png)" %}.
 
 We're going to go through all of these options - but first, we need to make our app run in production mode on our local machine.
 
@@ -87,7 +87,7 @@ So, you've got the speed badge. In my example app, starting the rails server in 
 
 When you click on the speed badge, you can see that `rack-mini-profiler` breaks down the time your page took to render on a per-template basis. It breaks out execution time spent in the layout, for example, and then break out each partial that was rendered as well.  Here's an example readout from a different app I work on:
 
-![http://i.imgur.com/e0G29PD.png](http://i.imgur.com/e0G29PD.png)
+![https://i.imgur.com/e0G29PD.png](https://i.imgur.com/e0G29PD.png)
 
 I think this view is pretty self explanatory so far. You're looking at exactly where your time goes on each request in a brief overview. When I look at this view for any given request, here's what I look for:
 
@@ -99,7 +99,7 @@ I think this view is pretty self explanatory so far. You're looking at exactly w
 
 There are some other features here in the speed badge. Click any of the SQL links and you'll see the exact query being executed. Here are two as an example:
 
-![http://i.imgur.com/C6XnlTu.png](http://i.imgur.com/C6XnlTu.png)
+![https://i.imgur.com/C6XnlTu.png](https://i.imgur.com/C6XnlTu.png)
 
 The number on the top left (39.20 ms) is the total time spent between rendering this partial and the next one - notice that this is slightly different than the number to the right, the amount of time actually spent rendering the partial (16.75ms). Whenever I see "lost time" like this, I dig in with the flamegraph tool to see exactly where the time went. We'll get into that in the next section.
 
@@ -116,11 +116,11 @@ I follow this process for every query on the page - see if I can remove it or ca
 
 This is one of my favorite parts of `rack-mini-profiler`, and as far as I know, not duplicated anywhere else. If I add `?pp=flamegraph` to my query string, I can get this incredible flamegraph of the same request I outlined above:
 
-![http://i.imgur.com/nr2aojD.png](http://i.imgur.com/nr2aojD.png)
+![https://i.imgur.com/nr2aojD.png](https://i.imgur.com/nr2aojD.png)
 
 The height of the "flame" indicates how deep we are in the stack. Think of the Y axis as stack level, and the X axis as time. You can zoom in and out with your mouse scroll wheel.
 
-![http://i.imgur.com/d9hPsKR.png](http://i.imgur.com/d9hPsKR.png)
+![https://i.imgur.com/d9hPsKR.png](https://i.imgur.com/d9hPsKR.png)
 
 At the bottom of the page, you'll see a legend, denoting what all the colors refer to. Note that the percentage displayed next to each part is the *percentage of the time the request spent inside that stack frame*. For example, this app is called SomeApp. It looks like we spent 76.42% of our time in the app itself. The other time was taken up by rack middleware (like `lograge`, `airbrake` and `hirefire-resource`) and Rails.
 

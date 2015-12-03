@@ -16,7 +16,7 @@ A quick note on definitions - this post will only cover "application"-layer cach
 
 Developers, by our nature, are very different from end-users. We understand a lot about what happens behind the scenes in software and web applications. We know that when a typical webpage loads, a lot of code is run, database queries executed, and sometimes services pinged over HTTP. That takes time. We're used to the idea that when you interact with a computer, it takes a little while for the computer to come back with an answer.
 
-End-users are completely different. Your web application is a magical box. End-users have no idea what happens inside of that box.{% sidenote 1 "<img src='http://i.imgur.com/X17puIB.gif'><i>Developer perception of end-users.</i>" %} Especially these days, **end-users expect near-instantaneous response from our magical boxes**. Most end-users wanted whatever they're trying to get out of your web-app *yesterday*.
+End-users are completely different. Your web application is a magical box. End-users have no idea what happens inside of that box.{% sidenote 1 "<img src='https://i.imgur.com/X17puIB.gif'><i>Developer perception of end-users.</i>" %} Especially these days, **end-users expect near-instantaneous response from our magical boxes**. Most end-users wanted whatever they're trying to get out of your web-app *yesterday*.
 
 This rings of a truism. Yet, we never set hard performance requirements in our user stories and product specifications. Even though server response time is easy to measure and target, and we know users want fast webpages, we fail to ever say for a particular site or feature: "This page should return a response within 100ms." As a result, performance often gets thrown to the wayside in favor of the next user story, the next great big feature. Performance debt, like technical debt, mounts quickly. **Performance never really becomes a priority until the app is basically in flames** every time someone makes a new request.
 
@@ -26,7 +26,7 @@ To make matters worse, **caching best practices seem to be frequently changing**
 
 ### Benefits of Caching
 
-So why cache? The answer is simple. Speed. With Ruby, we don't get speed for free because our language isn't very fast to begin with {% sidenote 2 "<img src='http://i.imgur.com/UDkHBEc.png'><i>Ruby performance in the <a href='http://benchmarksgame.alioth.debian.org/u32/compare.php?lang=yarv&lang2=v8'>Benchmarks Game</a> vs Javascript.</i>" %} . We have to get speed from *executing less Ruby on each request*. The easiest way to do that is with caching. Do the work once, cache the result, serve the cached result in the future.
+So why cache? The answer is simple. Speed. With Ruby, we don't get speed for free because our language isn't very fast to begin with {% sidenote 2 "<img src='https://i.imgur.com/UDkHBEc.png'><i>Ruby performance in the <a href='http://benchmarksgame.alioth.debian.org/u32/compare.php?lang=yarv&lang2=v8'>Benchmarks Game</a> vs Javascript.</i>" %} . We have to get speed from *executing less Ruby on each request*. The easiest way to do that is with caching. Do the work once, cache the result, serve the cached result in the future.
 
 But how fast do we need to be, really?
 
@@ -56,7 +56,7 @@ This is where profiling comes in. Rather than trying to guess "in the dark" what
 
 My preferred tool for this task is the incredible [rack-mini-profiler](https://github.com/MiniProfiler/rack-mini-profiler). `rack-mini-profiler` provides an excellent line-by-line breakdown of where *exactly* all the time goes during a particular server response.
 
-However, we don't even have to use `rack-mini-profiler` or even any other profiling tools if we're too lazy and don't want to - Rails provides a total time for page generation out of the box in the logs {% sidenote 3 "<img src='http://i.imgur.com/wTHHYbr.png'>" %} . It'll look something like this:
+However, we don't even have to use `rack-mini-profiler` or even any other profiling tools if we're too lazy and don't want to - Rails provides a total time for page generation out of the box in the logs {% sidenote 3 "<img src='https://i.imgur.com/wTHHYbr.png'>" %} . It'll look something like this:
 
 ```
 Completed 200 OK in 110ms (Views: 65.6ms | ActiveRecord: 19.7ms)
@@ -66,7 +66,7 @@ The total time (110ms in this case) is the important one. The amount of time spe
 
 The ActiveRecord number here is also misleading - as far as I can tell from reading the Rails source, this is *not* the amount of time spent executing Ruby in ActiveRecord (building the query, executing the query, and turning the query results into ActiveRecord objects), but only the time spent querying the database (so the actual time spent in DB). Sometimes, especially with very complicated queries that use a lot of eager loading, turning the query result into ActiveRecord objects takes a *lot* of time, and that may not be reflected in the ActiveRecord number here.
 
-And where'd the rest of the time go? Rack middleware and controller code mostly. But to get a millisecond-by-millisecond breakdown of *exactly* where your time goes during a request, you'll need `rack-mini-profiler` and the `flamegraph` extension {% sidenote 4 "<img src='http://i.imgur.com/h3ZvWGm.png'><i>What the flamegraph looks like in rack-mini-profiler</i>" %}. Using that tool, you'll be able to see exactly where every millisecond of your time goes during a request on a line-by-line basis. I'm working on a guide for using `rack-mini-profiler` - if you'd like to hear about that guide when it comes out, be sure to sign up for my newsletter (bottom right).
+And where'd the rest of the time go? Rack middleware and controller code mostly. But to get a millisecond-by-millisecond breakdown of *exactly* where your time goes during a request, you'll need `rack-mini-profiler` and the `flamegraph` extension {% sidenote 4 "<img src='https://i.imgur.com/h3ZvWGm.png'><i>What the flamegraph looks like in rack-mini-profiler</i>" %}. Using that tool, you'll be able to see exactly where every millisecond of your time goes during a request on a line-by-line basis. I'm working on a guide for using `rack-mini-profiler` - if you'd like to hear about that guide when it comes out, be sure to sign up for my newsletter (bottom right).
 
 ### Production Mode
 
