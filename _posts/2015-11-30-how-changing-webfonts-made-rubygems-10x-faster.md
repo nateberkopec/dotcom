@@ -8,7 +8,7 @@ summary: "WebFonts are awesome and here to stay. However, if used improperly, th
 readtime: 3671 words/18 minutes
 ---
 
-{% marginnote "<img src='http://imgur.com/nzECFNz.jpg'></img>" %}
+{% marginnote "<img src='https://imgur.com/nzECFNz.jpg'></img>" %}
 I'm passionate about fast websites. That's a corny thing to say, I realize - it's something you'd probably read on a resume, next to a description of how "detail-oriented" and "dedicated" I am. But really, I love the web. The openness of the Web has contributed to a global coming-together that's created beautiful things like Wikipedia or the FOSS movement.
 
 As Jeff Bezos has said {% sidenote 1 "[Basecamp, Signal vs. Noise](https://signalvnoise.com/posts/3112-how-basecamp-next-got-to-be-so-damn-fast-without-using-much-client-side-ui)"%}, nobody is going to wake up 10 years from now and wish their website was slower. By making the web faster, we can make bring the Web's amazing possibilities for collaboration to an even wider global audience.

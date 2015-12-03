@@ -69,7 +69,7 @@ So you know how I said I don't like worker-killer gems? Well, there's one specia
 
 If you’ve got a memory leak you can’t track down (more on this in a future post), you need to employ a solution that will restart your workers when they start to use swap memory. There are a lot of ways to do this. Several gems, like puma-worker-killer, will do it for you.
 
-{% marginnote "<img src='http://i.stack.imgur.com/nlwy8.png'><i>What a leak looks like. Note the steep slope of the graph, which crashes back down to low numbers when the dyno restarts. This graph never really levels off.</i>" %}
+{% marginnote "<img src='https://i.stack.imgur.com/nlwy8.png'><i>What a leak looks like. Note the steep slope of the graph, which crashes back down to low numbers when the dyno restarts. This graph never really levels off.</i>" %}
 
 Remember, **you only need to employ a worker killer if your application is leaking memory - not if it’s just bloated**. How do you know the difference between bloat and leaks?
 

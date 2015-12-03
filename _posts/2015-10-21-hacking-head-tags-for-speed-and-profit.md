@@ -40,7 +40,7 @@ Our optimal `head` tag will try to optimize *all* of these times. It's important
 
 ## Encoding
 
-{% marginnote "<img src='http://wac.450f.edgecastcdn.net/80450F/screencrush.com/files/2014/04/matrix.gif'></img><br><i>\"You get used to it. I don't even see the code anymore. All I see is cat gif, BuzzFeed listicle, Facebook status...\"</i>" %} Here's an easy optimization to start us off. When a browser downloads your page off the network, it's just a stream of bits and bytes, and the browser doesn't really know what character encoding you used. Before it can read the data, it needs to decide on a character encoding to use to read the document.  99.9% of the time on the web, we do this with UTF-8, but that isn't guaranteed.
+{% marginnote "<img src='https://wac.450f.edgecastcdn.net/80450F/screencrush.com/files/2014/04/matrix.gif'></img><br><i>\"You get used to it. I don't even see the code anymore. All I see is cat gif, BuzzFeed listicle, Facebook status...\"</i>" %} Here's an easy optimization to start us off. When a browser downloads your page off the network, it's just a stream of bits and bytes, and the browser doesn't really know what character encoding you used. Before it can read the data, it needs to decide on a character encoding to use to read the document.  99.9% of the time on the web, we do this with UTF-8, but that isn't guaranteed.
 
 The browser has to decide what *character encoding to use*. There's a couple of ways it can do this (fastest first):
 

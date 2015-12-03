@@ -110,7 +110,7 @@ What does all of this mean to us though? Not a whole lot. You could easily do so
 
 ### Two-way communication
 
-{% marginnote "<img src="http://www.reactiongifs.com/r/prs.gif" /> <br> <i>How many duplexes do YOU have, Red Ranger?</i>" %} One thing you hear a lot about WebSockets is that they're "full-duplex". What the hell does that mean? Well, clearly, *full* duplex is *better* than *half-duplex* right? That's double the duplexes!
+{% marginnote "<img src="https://www.reactiongifs.com/r/prs.gif" /> <br> <i>How many duplexes do YOU have, Red Ranger?</i>" %} One thing you hear a lot about WebSockets is that they're "full-duplex". What the hell does that mean? Well, clearly, *full* duplex is *better* than *half-duplex* right? That's double the duplexes!
 
 All that full-duplex really means is **simultaneous communication**. With HTTP, the client usually has to complete their request to the server before the server can respond. Not so with WebSockets - clients (and servers) can send messages across the pipe at any time.
 

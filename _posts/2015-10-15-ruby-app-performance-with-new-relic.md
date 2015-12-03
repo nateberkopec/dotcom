@@ -104,7 +104,7 @@ Note that most browser load times are 1-3 seconds, while most application server
 
 Next, I'm considering the shape of the response time graph. Does the app seem to slow down at certain times of day or during deploys?
 
-{% marginnote "<img src='http://s16.postimg.org/qh5dus7lx/Screen_Shot_2015_10_14_at_8_11_41_PM.png'></img>" %} The most important part of this graph, though, is to figure out how much time goes to what part of the stack. Here's a typical Ruby application - most of its time is spent in Ruby. If I see an app that spends a lot of time in the database, web external, or other processes, I know there's a problem. Most of your time should be spent in Ruby (running Ruby code is usually the slowest part of your app!). If, for example, I see a lot of time in web external, I know there's probably a controller or view that's waiting, synchronously, on an external API. That's almost never necessary and I'd work to remove that. A lot of time in request queueing means you need more servers, because requests are spending too much time waiting for an open application instance.
+{% marginnote "<img src='https://s16.postimg.org/qh5dus7lx/Screen_Shot_2015_10_14_at_8_11_41_PM.png'></img>" %} The most important part of this graph, though, is to figure out how much time goes to what part of the stack. Here's a typical Ruby application - most of its time is spent in Ruby. If I see an app that spends a lot of time in the database, web external, or other processes, I know there's a problem. Most of your time should be spent in Ruby (running Ruby code is usually the slowest part of your app!). If, for example, I see a lot of time in web external, I know there's probably a controller or view that's waiting, synchronously, on an external API. That's almost never necessary and I'd work to remove that. A lot of time in request queueing means you need more servers, because requests are spending too much time waiting for an open application instance.
 
 #### Percentiles and Histograms
 
@@ -114,7 +114,7 @@ Most Ruby apps response time histograms look like an power curve. Remember what 
 
 ### What realm of RPM are we playing in?
 
-{% marginnote "<img src='http://www.gifbin.com/bin/032012/1332955794_big_domino_pyramid_collapses.gif'></img><br><i>What it looks like optimizing a high-scale app in production</i>" %}  It's always helpful to check what "order of magnitude" we're at as far as scale. Here are my rules of thumb:
+{% marginnote "<img src='https://www.gifbin.com/bin/032012/1332955794_big_domino_pyramid_collapses.gif'></img><br><i>What it looks like optimizing a high-scale app in production</i>" %}  It's always helpful to check what "order of magnitude" we're at as far as scale. Here are my rules of thumb:
 
 | Requests per minute | Scale |
 | -------- | -------- |
