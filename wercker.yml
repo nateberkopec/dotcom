@@ -25,12 +25,9 @@ build:
             code: bundle exec jekyll build --trace
 deploy:
   steps:
-      s3sync:
-        bucket_url: $URL
+    - s3sync:
         key_id: $KEY
         key_secret: $SECRET
-        opts: "--acl-public --delete-removed"
+        bucket_url: $URL
         source_dir: _site/
-
-
-
+        opts: --acl-public --delete-removed
