@@ -12,11 +12,20 @@ HTTP/2 is coming! No, wait, HTTP/2 is here! [After publication in Q1 of 2015](ht
 ), it's magical web-speed pixie dust! Let's get it going!
 
 {% marginnote "![](http://i.imgur.com/rHXhQoM.jpg)<br>Uh, hello Aaron? Yeah, could you like, fix Rack please?" %}
-Well, no. Not really. Ilya Grigorik has written an experimental HTTP/2 webserver in Ruby, but it's not compatible with Rack, and therefore not compatible with any Ruby web framework. While [@tenderlove](http://tenderlovemaking.com/) has done [some](https://github.com/tenderlove/the_metal) [experiments](https://github.com/tenderlove/arghhh) [with HTTP/2](https://twitter.com/tenderlove/status/626044968419721217), Rack remains firmly stuck in an HTTP/1.1 world. While it was discussed that this would change with Rack 2 and Rails 5, very little actually changed. Until the situation changes at the Rack level, Rails and all other Ruby web frameworks are stuck with HTTP/1.1.
+Well, no. Not really. Ilya Grigorik has written an experimental HTTP/2 webserver in Ruby, but it's not compatible with Rack, and therefore not compatible with any Ruby web framework. While [@tenderlove](http://tenderlovemaking.com/) has done [some](https://github.com/tenderlove/the_metal) [experiments](https://github.com/tenderlove/arghhh) [with HTTP/2](https://twitter.com/tenderlove/status/626044968419721217), Rack remains firmly stuck in an HTTP/1.1 world. [While it was discussed that this would change with Rack 2 and Rails 5](https://github.com/tenderlove/the_metal/issues/5), very little actually changed. Until the situation changes at the Rack level, Rails and all other Ruby web frameworks are stuck with HTTP/1.1.
 
 Part of the reason why progress has been slow here (other than, apparently, that [@tenderlove](http://tenderlovemaking.com/) is the only one that wants to work on this stuff) is that Rack is thoroughly designed for an HTTP/1.1 world. In a lot of ways, HTTP/2's architecture will probably mean that whatever solution we come up with will bear more resemblance to ActionCable than it does to to Rack 1.0.
 
-With those hurdles aside, HTTP/2 could bring, potentially, huge performance benefits to Ruby web applications.
+Ilya Grigorik, Google's public web performance advocate, [has laid out 4 principles for the web architecture of the future](https://www.igvita.com/2012/01/18/building-a-modern-web-stack-for-the-realtime-web/). Unfortunately, Rack is incompatible with most of these principles:
+
+* **Request and Response streaming should be the default**. While it isn't the default, Rack at least supports streaming responses (it has for a while, at least).
+* **Connections to backend servers should be persistent**. I don't see anything in Rack that stops us from doing this at the moment.
+* **Communication with backend servers should be message-oriented**. Here's one of the main hangups - Rack is designed around the request/response cycle. Client makes a request, server makes a response. While we have some limited functionality for server pushes (see [ActionController::Live::SSE](http://api.rubyonrails.org/classes/ActionController/Live/SSE.html)), communication in Rack is mostly designed around request/response, not arbitrary messages that can go in either direction.
+* **Communication between clients and backends should be bi-directional**. Another problem for Rack - it isn't really designed for pushes straight from the server without a corresponding request. Rack essentially assumes it has direct read/write access to a socket, but HTTP/2 complicates that considerably.
+
+If you're paying attention, you'll realize these 4 principles sound a hell of a lot like WebSockets. HTTP/2, in a lot of ways, obviates Ruby developers' needs for WebSockets. [As I mentioned in my guide to ActionCable](https://www.nateberkopec.com/2015/09/30/action-cable.html), WebSockets are a layer *below* HTTP, and one of the major barriers of WebSocket adoption for application developers will be that many of the things you're used to with HTTP (RESTful architecture, HTTP caching, redirection, etc) need to be *re-implemented* with WebSockets. Once HTTP/2 gets a JavaScript API for opening bi-directional streams to our Rails servers, the reasons for using WebSockets at all pretty much evaporate.
+
+When these hurdles are surmounted, HTTP/2 could bring, potentially, great performance benefits to Ruby web applications.
 
 ## HTTP/2 Changes That Benefit Rubyists
 
@@ -70,7 +79,6 @@ HTTP/2 will especially benefit users in high-latency environments like mobile ne
 
 ### Binary
 
-https:
 {% marginnote "![](https://media.giphy.com/media/zUcie4crEx0wE/giphy.gif)<br>[I'm a computer!](https://www.youtube.com/watch?v=1eA3XCvrK90)" %}
 HTTP/2 is a binary protocol. This means that, instead of plain text being sent across the wire, we're sending 1s and 0s. In short, this means HTTP/2 will be easier for implementers, because plain-text protocols are often more difficult to control for edge-cases. But for clients and servers, we should see slightly better bandwidth utilization.
 
@@ -96,7 +104,7 @@ In HTTP/1.x-world, we've done a lot of things to get around the fact that openin
 
 But since HTTP/2 makes many-files just as cheap as one-file, that opens up a whole new world of advantages for Rails:
 
-* Development mode will get colosally faster. In development mode, we don't concatenate resources, meaning a single page often requires dozens of scripts and css files. HTTP/2 should make this just as fast as a single concatenated file in production.
+* Development mode will get waaaay faster. In development mode, we don't concatenate resources, meaning a single page often requires dozens of scripts and css files. HTTP/2 should make this just as fast as a single concatenated file in production.
 * We can experiment with more granular HTTP caching schemes. For example, in todays Rails' world, if you change *a single line* in your (probably massive) application.js, the entire file will need to be re-downloaded by *all* of your clients. With HTTP/2, we'll be able to experiment with breaking our one-JS and one-CSS approach into several different files. Perhaps you'll split out high-churn files so that low-churn CSS won't be affected.
 * We can amortize large amounts of CSS and JS over several page loads. In today's Rails world, you have to download *all* of the CSS and JS for the *entire application* on the first page load. With HTTP/2 and it's cheap connections, we can experiment with breaking up JS and CSS on a more granular basis. One way to do it might be per-controller - you could have a single base.css file and then additional css files for each controller in the app. Browsers could download bits and pieces of your JS and CSS as they go along - this would effectively reduce homepage (or, I guess, first-page) load times while not imposing any additional costs when pages included several CSS files.
 
@@ -123,13 +131,15 @@ Interestingly, I think some of this means we might need to serve different versi
 
 ## How to Take Advantage of HTTP/2 Today
 
+If you're curious about where we have to go next with Rack and what future interfaces might look like in Rails for taking advantage of HTTP/2, [I find that this Github thread is extremely illuminating](https://github.com/tenderlove/the_metal/issues/5).
+
 For all the doom-and-gloom I just gave you about HTTP/2 still looking a ways off for Ruby web frameworks, take heart! There are ways to take advantage of HTTP/2 today *before* anything changes in Rack and Rails.
 
 ### Move your assets to a HTTP/2 enabled CDN
 
 An easy one for most Rails apps is to use a CDN that has HTTP/2 support. Cloudflare is probably the largest and most well-known.
 
-There's no need to add a subdomain - simply directing traffic through Cloudflare should allow browsers to upgrade connections to HTTP/2 where available.
+There's no need to add a subdomain - simply directing traffic through Cloudflare should allow browsers to upgrade connections to HTTP/2 where available. The page you're reading right now is using Cloudflare to serve you with HTTP/2! Open up your developer tools to see what this looks like.
 
 ### Use an HTTP/2 enabled proxy, like nginx or h20.
 
@@ -137,4 +147,4 @@ You should receive most of the benefits of HTTP/2 just by proxying your Rails ap
 
 For example, Phusion Passenger can be deployed as an nginx module. nginx, as of 1.9.5, supports HTTP/2. Simply configure nginx for HTTP/2 as you would normally, and you should be able to see some of the benefits (such as header compression).
 
-With this setup, however, you still won't be able to take advantage of server push (as that has to be done by your application).
+With this setup, however, you still won't be able to take advantage of server push (as that has to be done by your application) or the websocket-like benefits of multiplexing.
