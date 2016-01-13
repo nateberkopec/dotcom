@@ -7,11 +7,20 @@ categories:
 summary: "Full HTTP/2 support for Ruby web frameworks is a long way off - but that doesn't mean you can't benefit from HTTP/2 today!"
 readtime: 2112 words/11 minutes
 ---
-{% marginnote "![](//i.imgur.com/yC6kwyY.gif)<br>Okay, way too much magical pixie dust." %}
-HTTP/2 is coming! No, wait, HTTP/2 is here! [After publication in Q1 of 2015](https://github.com/http2/http2-spec), HTTP/2 is now an "official thing" in Web-land. As of writing (December 2015), [caniuse.com esimates about 70% of browsers globally can now support HTTP/2](http://caniuse.com/#feat=http2). So, I can use HTTP/2 in my Ruby application *today*, right? After all, Google says that [some pages can load up to 50% faster just by adding HTTP/2/SPDY support](https://www.chromium.org/spdy/spdy-whitepaper 50% reduction in load time
+
+{% marginnote_block %}
+{% gif /assets/gifs/yC6kwyY.gif%}
+<br>
+Okay, way too much magical pixie dust.
+{% endmarginnote_block %}
+HTTP/2 is coming! No, wait, HTTP/2 is here! [After publication in Q1 of 2015](https://github.com/http2/http2-spec), HTTP/2 is now an "official thing" in Web-land. As of writing (December 2015), [caniuse.com estimates about 70% of browsers globally can now support HTTP/2](http://caniuse.com/#feat=http2). So, I can use HTTP/2 in my Ruby application *today*, right? After all, Google says that [some pages can load up to 50% faster just by adding HTTP/2/SPDY support](https://www.chromium.org/spdy/spdy-whitepaper 50% reduction in load time
 ), it's magical web-speed pixie dust! Let's get it going!
 
-{% marginnote "![](http://i.imgur.com/rHXhQoM.jpg)<br>Uh, hello Aaron? Yeah, could you like, fix Rack please?" %}
+{% marginnote_block %}
+{% image rHXhQoM.jpg %}
+<br>
+Uh, hello Aaron? Yeah, could you like, fix Rack please?
+{% endmarginnote_block %}
 Well, no. Not really. Ilya Grigorik has written an experimental HTTP/2 webserver in Ruby, but it's not compatible with Rack, and therefore not compatible with any Ruby web framework. While [@tenderlove](http://tenderlovemaking.com/) has done [some](https://github.com/tenderlove/the_metal) [experiments](https://github.com/tenderlove/arghhh) [with HTTP/2](https://twitter.com/tenderlove/status/626044968419721217), Rack remains firmly stuck in an HTTP/1.1 world. [While it was discussed that this would change with Rack 2 and Rails 5](https://github.com/tenderlove/the_metal/issues/5), very little actually changed. Until the situation changes at the Rack level, Rails and all other Ruby web frameworks are stuck with HTTP/1.1.
 
 Part of the reason why progress has been slow here (other than, apparently, that [@tenderlove](http://tenderlovemaking.com/) is the only one that wants to work on this stuff) is that Rack is thoroughly designed for an HTTP/1.1 world. In a lot of ways, HTTP/2's architecture will probably mean that whatever solution we come up with will bear more resemblance to ActionCable than it does to to Rack 1.0.
@@ -47,14 +56,23 @@ user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (K
 
 Cookies, especially, can balloon the size of HTTP requests and responses. Unfortunately, there is no provision in the HTTP 1.x specification for compressing these - unlike response bodies, which we can compress with things like `gzip`.
 
-{% marginnote "![](//i.imgur.com/ITu2NDW.png)<br>Huffman coding, duh!" %}
+{% marginnote_block %}
+{% image ITu2NDW.jpg %}
+<br>
+Huffman coding, duh!
+{% endmarginnote_block %}
 Headers can make up 800-1400KB of a request or response - multiply this to Web Scale and you're talking about a *lot* of bandwidth. HTTP/2 will reduce this *greatly* by compressing headers with something fancy called Huffman coding. You don't really need to understand how that works, just know this - HTTP/2 makes HTTP headers smaller by nearly 80%. And you, as an application author, won't need to do anything to take advantage of this benefit, because the compression/decompression will happen at lower levels (probably in Rack or some new layer directly below).
 
 This compression will probably be one of the first HTTP2 features that Rails apps will be able to take advantage of, since header compression/decompression can happen at the load balancer or at the web server, before the request gets to Rack. You can take advantage of header compression today, for example, by placing your app behind Cloudflare’s network, which provides HTTP/2 termination at their load balancers.
 
 ### Multiplexing
 
-{% marginnote "![](//imgur.com/mcxYuDb.gif)<br>Damn, shoulda multiplexed." %}
+{% marginnote_block %}
+{% gif /assets/gifs/mcxYuDb.gif%}
+<br>
+Damn, shoulda multiplexed.
+{% endmarginnote_block %}
+
 Multiplexing is a fancy word for two-way communication. HTTP 1.x was a one-way street - you could only communicate in one direction at a time. This is sort of like a walkie-talkie - if one person is transmitting with a walkie-talkie, the person on the other walkie-talkie can't transmit until the first person lets off the "transmit" button.
 
 On the server side, this means that we can send multiple responses to our client over a *single connection* at the *same time*. This is nice, because setting up a new connection is actually sort of expensive - it can take 100-500ms to resolve DNS, open a new TCP connection, and perhaps negotiate SSL.
@@ -79,7 +97,12 @@ HTTP/2 will especially benefit users in high-latency environments like mobile ne
 
 ### Binary
 
-{% marginnote "![](https://media.giphy.com/media/zUcie4crEx0wE/giphy.gif)<br>[I'm a computer!](https://www.youtube.com/watch?v=1eA3XCvrK90)" %}
+{% marginnote_block %}
+{% gif /assets/gifs/computers.gif%}
+<br>
+<a href="https://www.youtube.com/watch?v=1eA3XCvrK90">I'm a computer!</a>
+{% endmarginnote_block %}
+
 HTTP/2 is a binary protocol. This means that, instead of plain text being sent across the wire, we're sending 1s and 0s. In short, this means HTTP/2 will be easier for implementers, because plain-text protocols are often more difficult to control for edge-cases. But for clients and servers, we should see slightly better bandwidth utilization.
 
 Unfortunately, this means you won't be able to just `telnet` into an HTTP server anymore. To debug HTTP/2 connections, you're going to need to use a tool that will decode it for you, such as the browser's developer tools or something like WireShark.

@@ -34,11 +34,13 @@ assets:
   prefix: "/assets"
   assets:
     - "*.png"
+    - "*.jpg"
     - "base.css"
+    - "application.js"
   digest: true
   sources:
     - "assets"
     - "assets/css"
     - "assets/img"
+    - "assets/js"
     - "_sass"
-
