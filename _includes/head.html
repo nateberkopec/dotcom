@@ -5,6 +5,8 @@
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
+  {% stylesheet css/base.css %}
+
   <!-- https://gist.github.com/tomfuertes/df8b41cad90747452b66 -->
   <script>
     !function(n,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date}(window,"ga");
@@ -12,7 +14,6 @@
     ga('send', 'pageview');
   </script>
 
-  {% stylesheet css/base.css %}
   <link href='//fonts.gstatic.com' rel='preconnect' crossorigin>
   <link href='//fonts.googleapis.com/css?family=Oswald:400&text=NATE%20MAKES%20APPS%20FAST' rel='stylesheet'>
 
@@ -21,5 +22,6 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
+  <script src="//www.google-analytics.com/analytics.js" async defer></script>
   {% javascript js/application.js async="async" defer="defer" %}
 </head>
