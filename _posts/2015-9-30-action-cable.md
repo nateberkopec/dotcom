@@ -58,7 +58,7 @@ Using server-side events is really quite simple from the (Javascript) client's s
 
 Server-sent event support was added to Rails in 4.0, through [ActionController::Live](http://tenderlovemaking.com/2012/07/30/is-it-live.html).
 
-Serving a client with SSEs requires a persistent connection. This means a few things: using Server-sent events won't work pretty much at all on Heroku, since they'll terminate any connections after 30 seconds. Unicorn will do the same thing, and WEBrick won't work at all. So you're stuck using Puma or Thin, and you can't be on Heroku. Oh, and no one using your site can use Internet Explorer. You can see why ActionController::Live hasn't caught on. It's too bad - the API is really simple and for most implementations ("live" comments, for example) SSE's would work great.
+Serving a client with SSEs requires a persistent connection. This means a few things: using Server-sent events won't work pretty much at all on Heroku, since they'll terminate any connections after 30 seconds. Unicorn will do the same thing, and WEBrick won't work at all. So your options are Passenger, Puma, or Thin, and you can't be on Heroku. Oh, and no one using your site can use Internet Explorer. You can see why ActionController::Live hasn't caught on. It's too bad - the API is really simple and for most implementations ("live" comments, for example) SSE's would work great.
 
 ## How WebSockets Work
 
