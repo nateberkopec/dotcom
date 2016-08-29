@@ -6,6 +6,7 @@ categories:
   - performance
 summary: "Full HTTP/2 support for Ruby web frameworks is a long way off - but that doesn't mean you can't benefit from HTTP/2 today!"
 readtime: 2112 words/11 minutes
+image: https://i.imgur.com/7ep6bdy.jpg
 ---
 
 {% marginnote_block %}

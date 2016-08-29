@@ -24,4 +24,15 @@
 
   <script src="//www.google-analytics.com/analytics.js" async defer></script>
   {% javascript js/application.js async="async" defer="defer" %}
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@nateberkopec" />
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+  <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
+  <meta name="twitter:image" content="https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg" />
+  {% if page.image %}
+    <meta name="twitter:image" content="{{ page.image }}">
+  {% else %}
+    <meta name="twitter:image" content="https://i.imgur.com/8e1DUAqb.jpg">
+  {% endif %}
 </head>
