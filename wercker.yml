@@ -22,7 +22,7 @@ build:
         # that actually builds the jekyll site
         - script:
             name: generate site
-            code: bundle exec jekyll build --trace
+            code: LANG="en_US.utf8" bundle exec jekyll build --trace
 deploy:
   steps:
     - s3sync:
