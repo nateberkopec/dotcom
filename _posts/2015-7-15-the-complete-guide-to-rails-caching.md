@@ -178,7 +178,7 @@ You can give an Array to `cache` and your cache key will be based on a concatena
 
 ```
 <% todo = Todo.first %>
-<% cache([current_user, todo]) %>
+<% cache([current_user, todo]) do %>
   ... a whole lot of work here ...
 <% end %>
 ```
@@ -208,7 +208,7 @@ But there's a problem with my above example code - let's say I change an existin
 Russian doll caching is simply using key-based cache expiration to solve this problem. When the 'inner' cache expires, we also want the outer cache to expire. If the outer cache expires, though, we *don't* want to expire the inner caches. Let's see what that would like in our todo_list example above:
 
 ```
-<% cache(["todo_list", @todos.map(&:id), @todos.maximum(:updated_at)]) %>
+<% cache(["todo_list", @todos.map(&:id), @todos.maximum(:updated_at)]) do %>
   <ul>
     <% @todos.each do |todo| %>
       <% cache(todo) do %>
