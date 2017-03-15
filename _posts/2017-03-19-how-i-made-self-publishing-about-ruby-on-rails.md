@@ -154,7 +154,7 @@ You need to put your writing somewhere online, of course. Since this post is abo
 {% marginfigure /assets/img/posts/bodge.jpg "No, a micro AWS instance is not a good idea." %}
 If you're not going to use a hosted solution, such as Medium, you *must* *must* *must* have a static site hosted on a big-box provider (such as Amazon) and use a CDN. So many personal programmer blogs are hosted on two-bit VPSes, which are more expensive than Amazon S3 and *always* fail when the site frontpages on HN. I intentionally designed my own blog so that I don't control any of the servers that host my site, and it has *never* gone down or even slowed during periods of high traffic. Hitting top-10 on HN or getting a massively retweeted post is a critical moment for any website, and you cannot afford to go down during those times. *Do not* run your own servers, let someone else do it for you.
 
-Don't overload your site with marketing flim-flam. You're writing for a savvy technical audience - nerds that still use outdated technologies such as `lynx`, browsers which respect privacy rights, and RSS for example. My latest redesign of my blog (the [speedshop](www.speedshop.co) one, not this one) doesn't load *a single thing* which is blocked by content blockers such as uBlock Origin. People notice. I've been experimenting with not even loading Google Analytics, because I've realized the numbers are just vanity metrics that don't change how, when or what I write about. I even write my email newsletter in plain-text now.
+Don't overload your site with marketing flim-flam. You're writing for a savvy technical audience - nerds that still use outdated technologies such as `lynx`, browsers which respect privacy rights, and RSS for example. My latest redesign of my blog (the [speedshop](www.speedshop.co) one, not this one) doesn't load *a single thing* which is blocked by content blockers such as uBlock Origin. People notice. I don't load Google Analytics because I've realized the numbers are just vanity metrics that don't change how, when or what I write about. I even write my email newsletter in plain-text now.
 
 Don't overload on metrics. Of course, you need to have a few key numbers in order to measure the uptake of your posts, but you don't need Optimizely and a thousand other analytics widgets. My key numbers, for example, are social shares and newsletter signups.
 
@@ -174,7 +174,7 @@ As for what you actually use to send your newsletter, it doesn't matter. I use M
 
 I'll also note here my success with plaintext newsletters. I'm not sure if it gets past spam filters better (or worse), but I got a lot of appreciative emails from my readers when I switched. Try it on your own list.
 
-As for newsletter content, I usually just write to it every time I write a new post. I write about a few hundred words about the post and include a link. Nothing fancier than that.
+As for newsletter content, I usually just write it every time I write a new post. I write about a few hundred words about the post and include a link. Nothing fancier than that.
 
 Your other main channel, the one you'll use to get new readers, is social media. The exact social media channels you use are going to differ depending on your subject area. In addition, Medium, if you're using that to publish, is sort of like a social network of it's own.
 
@@ -212,7 +212,7 @@ As for actually deciding what my $100-tier product was going to be about and how
 * **Write a long-copy style marketing page** - [Here's the actual Google Doc I used when developing the Complete Guide to Rails Performance](https://docs.google.com/document/d/1oxWSrIMha-G--Lwi6pqDeJnmT4vQxS4CEuupn7RvX60/edit?usp=sharing). Write about 2,000+ words about your product, describing it from all angles. For more about how to write long-copy marketing, see here. You're basically trying to address every possible objection to why someone *wouldn't* buy your product. If you think long-copy marketing pages don't work, you are 100% wrong and clearly have not tried to sell a product like this before. There's a reason why I do it, there's a reason why every successful infoproduct seller does it. They work.
 * **Take 50 newsletter subscribers as a cohort and ask them to pre-order** - Time for our first build-measure-learn loop! Take 50 newsletter subscribers at random, and send them your marketing page. Tell them you're trying out this product idea and ask them for some feedback. Videofruit has a specific list of questions to ask, which I also used. When they reply with an answer to your questions, reply back with a thank you and ask them to pre-order at the price point that you're testing. I used Gumroad to take preorders (more on them in a bit).
 * **Revise the marketing page based on what you learned.** The survey responses you received will be gold. Go back and revise the marketing page with this feedback. If 5 or more (that is, 10%) of your 50 subscribers actually put in their credit card and hit "pre-order", test a *higher* price point this time. If 5 people ordered at $200, test $300.
-* **Take another 50 newsletter subscribers, and try again.** Repeat the process with another set of 50 newsletter subscribers. Again, your goal is to for 10% of them to put in their credit cards and hit "preorder".
+* **Take another 50 newsletter subscribers, and try again.** Repeat the process with another set of 50 newsletter subscribers. Again, your goal is for 10% of them to put in their credit cards and hit "preorder".
 
 Once you've got 10% of your test group preordering, you can start actually developing the product. Overall, this process took me about 4-5 months from the time of accepting preorders to actually shipping. In that time, I wrote ~125k words for the book, and produced about 6 hours of screencasts. After the launch, I'd produce another ~12 hours of screencasts which were "dripped" out after the launch.
 
@@ -224,7 +224,7 @@ Here are my product development tools and tips:
 
 I used [**Gitbook**](https://www.gitbook.com/) for producing the book itself. It's really nice, because you can export to HTML, PDF, EPUB and MOBI and even JSON formats. However, styling Gitbook documents is waaaaay too difficult. I ended up just going with the default styles.
 
-Sell a private **Slack** as part of your addons. I was surprised by how much value my readers got out of this, but it's one of their favorite parts of the product.
+Sell a private **Slack** as part of your add-ons. I was surprised by how much value my readers got out of this, but it's one of their favorite parts of the product.
 
 Don't write your own selling platform. I used **Gumroad** to take payment. It's a solid checkout experience, and the fees they take aren't too excessive. Sometimes people overseas do have problem with the underlying Paypal implementation, though, so if you're selling mostly to non-US customers I'd look elsewhere.
 
