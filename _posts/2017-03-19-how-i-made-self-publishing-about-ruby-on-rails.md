@@ -31,7 +31,7 @@ In all, it took about 9 months from being a normal, run-of-the-mill Rails freela
 
 I'm going to break down the steps I took to create the course into 5 parts:
 
-{% marginfigure /assets/img/posts/curve.jpg "In tech, early majority means 'someone is using this to make money.'" %}
+{% marginfigure /assets/img/posts/curve.JPG "In tech, early majority means 'someone is using this to make money.'" %}
 
 * **Choose a subject and audience** - choose a subject area which is in the early-to-late majority, is something you have deep knowledge about, and something you can take a contrarian or novel position on.
 * **Find your voice** - this is your "brand". Look at the current writing in your chosen subject area, and then try to do the opposite.
