@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How To Get A Computer Science Degree in a Warzone"
-date:   2017-06-15 7:00:00
+date:   2017-08-10 7:00:00
 summary: "An appeal to any Canadian readers or friends of mine to help one of our own: a young computer programmer fleeing the Syrian Civil War."
 readtime: "2580 words/12 minutes"
 ---
