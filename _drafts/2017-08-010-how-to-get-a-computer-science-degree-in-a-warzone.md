@@ -26,6 +26,8 @@ Mohammed and I continued corresponding. He never asked for anything except advic
 
 In January of this year, Mohammed fled Syria and made it to Turkey, where he is officially a Syrian refugee.
 
+{% marginfigure /assets/img/posts/avatar.jpg "Mohammed with his public key fingerprint. We both signed this post, see the end. [Keybase](https://keybase.pub/mohammedelias/me/avatar.jpg)" %}
+
 I'll turn it over to Mohammed to let him tell you his story. Mohammed's English is not bad, but I did heavily edit this section for readability and clarity.
 
 ## Enter Mohammed
@@ -118,4 +120,4 @@ In addition, if you live in *any* country whose immigration laws might allow som
 
 Mohammed is active on [Twitter](https://twitter.com/MohammedEliass) and [Github](https://github.com/Mohammed-Eliass).
 
-This blog post has been cryptographically signed by both [myself](https://gist.github.com/nateberkopec/c3a4b97892e0ddcbf4f1b5053140c645) and [Mohammed](). You may verify our signatures on [Keybase](https://keybase.io/verify). I also signed the commit on Github ([repository here](https://github.com/nateberkopec/dotcom)) for this blog post.
+This blog post has been cryptographically signed by both [myself](https://gist.github.com/nateberkopec/c3a4b97892e0ddcbf4f1b5053140c645) and [Mohammed](https://gist.github.com/Mohammed-Eliass/9d9067068b73049f2142ceb86af1a54f). You may verify our signatures on [Keybase](https://keybase.io/verify). I also signed the commit on Github ([repository here](https://github.com/nateberkopec/dotcom)) for this blog post.
