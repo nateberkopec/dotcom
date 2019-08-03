@@ -13,6 +13,7 @@ redcarpet:
 future:      false
 unpublished: false
 permalink: "blog/:year/:month/:day/:title.html"
+encoding: utf-8
 
 post:
   template: _post.txt
