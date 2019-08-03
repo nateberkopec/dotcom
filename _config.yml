@@ -24,7 +24,7 @@ editor: subl
 git:
   branch: master
 
-gems:
+plugins:
   - jekyll-assets
   - bootstrap-sass
 
