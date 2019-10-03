@@ -5,9 +5,8 @@ layout: default
   <div class="col-md-7 post">
     <article>
       <h1>{{ page.title | titleize }}</h1>
-      <div style="margin-top: -24px;">
+      <div style="margin-top: -24px; margin-bottom: 28px;">
         <div>by <b>Nate Berkopec</b> (<a target="_blank" href="http://twitter.com/nateberkopec">@nateberkopec</a>)</div>
-        {% include social-bar.html %}
       </div>
 
       {% if page.summary %}
@@ -19,8 +18,6 @@ layout: default
       {% endif %}
 
       {{ content }}
-
-      {% include social-bar.html %}
 
       <h2>Want a faster website?</h2>
 
@@ -43,11 +40,7 @@ layout: default
 </div>
 
 {% for post in site.posts %}
-  {% assign related = false %}
-  {% for t in post.categories %}{% for ref in page.categories %}
-    {% if t == ref %}{% assign related = true %}{% endif %}
-  {% endfor %}{% endfor %}
-  {% if related and post.title != page.title %}
+  {% if post.title != page.title %}
     {% cycle 'add row' : '<div class="row">', nil %}
       <div class="col-md-6">
         <h3>
