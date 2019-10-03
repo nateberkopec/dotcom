@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "I'm Glad I Failed In Front of Millions on Shark Tank"
-date:   2017-10-07 7:00:00
+date:   2017-10-04 0:00:00
 summary: "I appeared on Shark Tank, the American adaptation of the business-themed reality television show Dragon's Den, when I was 19. I've spent almost 10 years dealing with that experience and my perceptions of my own failure. Now, though, I'm glad I failed."
 readtime: "2892 words/13 minutes"
 ---
