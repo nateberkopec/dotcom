@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "What does it mean to be a open-source project maintainer?"
-date:   2017-10-07 0:00:00
+date:   2019-10-07 0:00:00
 summary: "What does it actually mean to be a maintainer? Can you be a maintainer without commit privileges, and does having commit privileges automatically make you a maintainer?"
 readtime: "821 words/4 minutes"
 ---
