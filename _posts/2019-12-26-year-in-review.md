@@ -22,7 +22,7 @@ Most of the growth this year came from my workshop business - both public and co
 
 ### Made MicroConf Friends
 
-{% marginfigure /assets/img/posts/IMG_4409.JPG "Presentations at MicroConf were pretty good too!" %}
+{% marginfigure /assets/img/posts/IMG_4409.jpg "Presentations at MicroConf were pretty good too!" %}
 
 I went to Microconf for the first time. I met a lot of cool people there, and ended up (eventually) getting into a biweekly "mastermind" group with a few of them. I enjoyed the atmosphere of MicroConf a lot. Everyone was looking to help everyone else, no one was "judgy" about other people's businesses, and no matter how weird your niche was, there was someone else there doing a very similar thing in a slightly different way, and you could talk shop all day about it.
 
@@ -34,7 +34,7 @@ In November, I ended up trying a Peloton bike at a hotel, and actually really en
 
 ### Fell in Love with Japan Even More
 
-{% marginfigure /assets/img/posts/IMG_4550.JPG "View of the supporter's section at an FC Tokyo game. Hope to go back to another game in 2020!" %}
+{% marginfigure /assets/img/posts/IMG_4550.jpg "View of the supporter's section at an FC Tokyo game. Hope to go back to another game in 2020!" %}
 
 In the spring, I attended RubyKaigi for the second time. This year, it was in Fukuoka, Japan.
 
@@ -50,7 +50,7 @@ The tour itself was more of a learning experience than a financial success. I ma
 
 ### Nomad Life
 
-{% marginfigure /assets/img/posts/IMG_7313.JPG "On the beach in Cape Coast, Ghana. Somewhere I'd wanted to return to for almost 10 years!" %}
+{% marginfigure /assets/img/posts/IMG_7313.jpg "On the beach in Cape Coast, Ghana. Somewhere I'd wanted to return to for almost 10 years!" %}
 
 In the fulfillment of a dream I've had for almost a decade (when I read the Four-Hour Workweek), I finally became a full-time "digital nomad". My wife and I left the US in August and don't plan on returning for at least a year.
 
