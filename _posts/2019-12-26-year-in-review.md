@@ -16,7 +16,7 @@ Here's a review of my 2019.
 
 So, I'll start with the big bang, the thing I'm most proud of. My freelancing - a combination of book sales, client work, and workshops - doubled in top-line revenue this year. Expenses were a lot higher too, but I'm still taking home a lot more than I was last year.
 
-Despite being in the self-employed business for almost 5 years now, this is probably the first year in which I made as much or more money than I would have at a corporate job. Still, I wouldn't trade the autonomy I've gained for anything. Making money on your own terms is really the ultimate luxuty good.
+Despite being in the self-employed business for almost 5 years now, this is probably the first year in which I made as much or more money than I would have at a corporate job. Still, I wouldn't trade the autonomy I've gained for anything. Making money on your own terms is really the ultimate luxury good.
 
 Most of the growth this year came from my workshop business - both public and corporate. I booked a lot more on-site corporate workshops, and did a tour of more than a dozen cities this summer in the USA.
 
