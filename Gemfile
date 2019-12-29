@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "jekyll"
+gem "jekyll", "~> 3.0"
 gem "redcarpet", ">= 2.0"
 gem "jekyll-assets"
 gem "sass"
