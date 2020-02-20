@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How I Made $131,521.20 Self-Publishing a Book About Ruby on Rails"
+title:  "How I Made $200,858.50 Self-Publishing a Book About Ruby on Rails"
 date:   2017-03-10 7:00:00
 summary: "A step-by-step walkthrough of how I made a nearly-full-time income from my Ruby on Rails course in 2016, and how it radically transformed my freelancing career."
 readtime: "7,121 words/35 minutes"

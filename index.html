@@ -56,20 +56,15 @@ title: Nate Berkopec
 </div>
 
 <div class="row">
-  {% assign counter = 0 %}
-  {% assign maxPostCount = 4 %}
   {% for post in site.posts %}
-    {% if counter < maxPostCount %}
-      <div class="col-md-6" style="min-height: 420px">
-        <h3>
-          <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h3>
-        <p>
-          {{ post.summary | strip_html | truncatewords: 50 }}
-        </p>
-        <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-      </div>
-      {% assign counter=counter | plus:1 %}
-    {% endif %}
+    <div class="col-md-6" style="min-height: 420px">
+      <h3>
+        <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h3>
+      <p>
+        {{ post.summary | strip_html | truncatewords: 50 }}
+      </p>
+      <p><a href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
+    </div>
   {% endfor %}
 </div>
