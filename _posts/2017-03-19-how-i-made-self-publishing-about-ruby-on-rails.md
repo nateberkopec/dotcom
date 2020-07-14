@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How I Made $200,858.50 Self-Publishing a Book About Ruby on Rails"
+title:  "How I Made $220,033.50 Self-Publishing a Book About Ruby on Rails"
 date:   2017-03-10 7:00:00
 summary: "A step-by-step walkthrough of how I made a nearly-full-time income from my Ruby on Rails course in 2016, and how it radically transformed my freelancing career."
 readtime: "7,121 words/35 minutes"
@@ -8,7 +8,7 @@ readtime: "7,121 words/35 minutes"
 
 {% marginfigure "/assets/img/posts/gumroad_shot.png" %}
 {% marginfigure /assets/img/posts/tsv.jpg "Did I mention how awesome it is to live 30 minutes from a ski lift?" %}
-In March of 2016, I launched a course called [The Complete Guide to Rails Performance](https://www.railsspeed.com). Since then, I have sold just over 500 copies, for gross revenue of $131,521.20 ($1050/week). Although I launched the course in March, I had worked on it for about 4 months. Releasing the course has been a lifechanging event for me. For the first time ever, I made more money over a year from product revenue rather than service revenue. Releasing the course nearly doubled my usual freelancing rate, allowed me to change my lifestyle by moving to a ski resort town in New Mexico, and turned me into something of a minor Thought Leader (tm) in the Ruby on Rails field.
+In March of 2016, I launched a course called [The Complete Guide to Rails Performance](https://www.railsspeed.com). Since then, I have distributed just over 1800 copies, for a gross revenue of $220,033.50 (about $1000/week). Although I launched the course in March, I had worked on it for about 4 months. Releasing the course has been a lifechanging event for me. For the first time ever, I made more money over a year from product revenue rather than service revenue. Releasing the course nearly doubled my usual freelancing rate, allowed me to change my lifestyle by moving to a ski resort town in New Mexico, and turned me into something of a minor Thought Leader (tm) in the Ruby on Rails field.
 
 In this post, I'd like to share my process for creating [The Complete Guide to Rails Performance](https://www.railsspeed.com) (henceforth "the CGRP"), what I'd do differently in the future, and how creating a programming information product radically changed my freelance career.
 
