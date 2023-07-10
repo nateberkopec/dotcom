@@ -26,22 +26,7 @@ git:
   branch: master
 
 plugins:
-  - jekyll-assets
   - bootstrap-sass
 
-assets:
-  js_compressor:  uglifier
-  css_compressor: sass
-  prefix: "/assets"
-  assets:
-    - "*.png"
-    - "*.jpg"
-    - "base.css"
-    - "application.js"
-  digest: true
-  sources:
-    - "assets"
-    - "assets/css"
-    - "assets/img"
-    - "assets/js"
-    - "_sass"
+sass:
+  style: compressed
