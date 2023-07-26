@@ -36,7 +36,7 @@ Frequency first, and no more long-term goals.
 
 My todo-list now looks something like this, every day:
 
-{% asset "img/posts/dailytodo.png"  %}
+<img src="/assets/img/posts/dailytodo.png">
 
 Note that I cannot track (at least not obviously) how many days in a row I have done any particular task. Notice how there are no specific goals: write X words, meditate X amount, practice Japanese for X minutes, either or a daily or monthly or other time basis. I've got some labels there to help me budget my time for the day, but they're not mandatory. There are no requirements for the duration of each task or the quality of the execution.
 
