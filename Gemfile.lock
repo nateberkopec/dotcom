@@ -40,14 +40,11 @@ GEM
       listen (~> 3.0)
     kramdown (2.3.0)
       rexml
-    libv8-node (16.19.0.1-arm64-darwin)
     liquid (4.0.3)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
-    mini_racer (0.6.4)
-      libv8-node (~> 16.19.0.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
@@ -71,7 +68,6 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.5.1)
   foreman
   jekyll (~> 3.0)
-  mini_racer
   redcarpet (>= 2.0)
 
 BUNDLED WITH
