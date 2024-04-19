@@ -3,3 +3,4 @@ _site
 .asset-cache/
 .DS_Store
 .jekyll-cache
+Brewfile.lock.json
