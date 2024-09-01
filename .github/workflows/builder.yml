@@ -9,10 +9,9 @@ jobs:
     - uses: actions/checkout@master
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '2.7' # Not needed with a .ruby-version file
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: make site 
-      run: bundle exec jekyll build 
+    - name: make site
+      run: bundle exec jekyll build
     - name: deploy to S3
       uses: jakejarvis/s3-sync-action@master
       if: contains(github.ref, 'master')
