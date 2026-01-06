@@ -27,5 +27,12 @@ editor: subl
 git:
   branch: master
 
+plugins:
+  - jekyll-postcss-v2
+
+postcss:
+  script: node_modules/.bin/postcss
+  config: postcss.config.js
+
 sass:
   style: compressed

@@ -6,3 +6,7 @@ gem "csv"
 gem "logger"
 gem "base64"
 gem "bigdecimal"
+
+group :jekyll_plugins do
+  gem "jekyll-postcss-v2", ">= 1.0.2"
+end
