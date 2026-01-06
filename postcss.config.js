@@ -16,6 +16,17 @@ module.exports = {
         ],
         defaultExtractor: (content) =>
           content.match(/[\w-/:]+(?<!:)/g) || [],
+        safelist: {
+          standard: [
+            "*",
+            "*:before",
+            "*:after",
+            "*::before",
+            "*::after",
+            "html",
+            "body",
+          ],
+        },
       }),
   ].filter(Boolean),
 };
