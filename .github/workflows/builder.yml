@@ -7,9 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: install node deps
+      run: npm ci
     - name: make site
       run: bundle exec jekyll build
     - name: deploy to S3
