@@ -4,3 +4,11 @@ _site
 .DS_Store
 .jekyll-cache
 Brewfile.lock.json
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.backup
+.env
+node_modules/

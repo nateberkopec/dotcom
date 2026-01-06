@@ -1,10 +1,12 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 3.0"
-gem "redcarpet", ">= 2.0"
-gem "foreman"
-gem "bootstrap-sass", "3.3.5.1"
+gem "jekyll", ">= 4.4.0"
+gem "foreman", ">= 0.90.0"
 gem "csv"
 gem "logger"
 gem "base64"
 gem "bigdecimal"
+
+group :jekyll_plugins do
+  gem "jekyll-postcss-v2", ">= 1.0.2"
+end

@@ -7,12 +7,14 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://www.nateberkopec.com" # the base hostname & protocol for your site
 author: Nate Berkopec
 # Build settings
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
 future:      false
 unpublished: false
-permalink: "blog/:year/:month/:day/:title.html"
+permalink: "blog/:title/"
 encoding: utf-8
 
 post:
@@ -26,7 +28,11 @@ git:
   branch: master
 
 plugins:
-  - bootstrap-sass
+  - jekyll-postcss-v2
+
+postcss:
+  script: node_modules/.bin/postcss
+  config: postcss.config.js
 
 sass:
   style: compressed

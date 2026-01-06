@@ -68,6 +68,6 @@ Instead, I allowed myself the creative space of my email newsletter to most more
 
 ### Re-evaluated Shark Tank
 
-[I went public with the anxiety I've experienced](https://www.nateberkopec.com/blog/2017/10/04/failing-on-shark-tank-changed-my-life.html) as a result of my appearance on the Shark Tank reality show in 2009. It took a lot of time for me to process that experience and its been helpful to be able to publicly say "this thing messed me up, and I'm still dealing with it."
+[I went public with the anxiety I've experienced](https://www.nateberkopec.com/blog/failing-on-shark-tank-changed-my-life/) as a result of my appearance on the Shark Tank reality show in 2009. It took a lot of time for me to process that experience and its been helpful to be able to publicly say "this thing messed me up, and I'm still dealing with it."
 
 Anyway, that was my 2019. See you in 2020 for more adventures. It felt like 2019 was a year of building foundations and stacking bricks, which I hope to continue to do in 2020.
