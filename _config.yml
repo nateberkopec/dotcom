@@ -17,6 +17,20 @@ unpublished: false
 permalink: "blog/:title/"
 encoding: utf-8
 
+# Drafts collection
+collections:
+  drafts:
+    output: true
+    permalink: /drafts/:title/
+
+# Defaults for drafts
+defaults:
+  - scope:
+      path: ""
+      type: "drafts"
+    values:
+      layout: "post"
+
 post:
   template: _post.txt
   extension: md

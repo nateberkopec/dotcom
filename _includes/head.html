@@ -22,4 +22,7 @@
   {% if page.image %}
     <meta name="twitter:image" content="{{ page.image }}">
   {% endif %}
+  {% if page.collection == 'drafts' %}
+  <meta name="robots" content="noindex, nofollow">
+  {% endif %}
 </head>

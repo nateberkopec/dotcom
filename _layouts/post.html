@@ -4,6 +4,11 @@ layout: default
 <div class="row">
   <div class="col-md-7 post">
     <article>
+      {% if page.collection == 'drafts' %}
+      <div style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; margin-top: 20px; margin-bottom: 30px; border-radius: 4px;">
+        <strong>⚠️ Draft Post:</strong> This is a work-in-progress shared for feedback. Content may change significantly before publication.
+      </div>
+      {% endif %}
       <h1>{{ page.title | titleize }}</h1>
       <div style="margin-top: -24px; margin-bottom: 28px;">
         <div>by <b>Nate Berkopec</b> (<a target="_blank" href="http://twitter.com/nateberkopec">@nateberkopec</a>)</div>

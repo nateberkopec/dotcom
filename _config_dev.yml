@@ -1,1 +1,4 @@
 url: "https://localhost:8080" # the base hostname & protocol for your site
+
+# In dev mode, show all drafts regardless of draft flag
+drafts_dev_mode: true
