@@ -18,6 +18,8 @@ jobs:
       run: npm ci
     - name: make site
       run: bundle exec jekyll build
+      env:
+        JEKYLL_ENV: production
     - name: deploy to S3
       uses: jakejarvis/s3-sync-action@master
       if: contains(github.ref, 'master')
