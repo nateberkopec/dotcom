@@ -1,9 +1,9 @@
 ---
-title: "37signals Isn't Smarter Than You, but They Are Different"
+layout: post
+title: "37signals Isn't Smarter Than You, But They Are Different"
 date: 2024-01-26 00:00:00
 summary: "37signals' code looks great because of their engineering strategy: stay small, cut scope ruthlessly, hire well. Most companies can't adopt this because they're unwilling to give up the 'more features = more money' mindset."
 readtime: "601 words/3 minutes"
-draft: true
 ---
 
 A recent episode of the [Rails Business Podcast](https://www.railsbusiness.com/2435951/episodes/18547312-striving-for-ideal-code) was about "striving for ideal code". The hosts are both typical "Rails Indie" owner/operators: a small team building a small SaaS.
