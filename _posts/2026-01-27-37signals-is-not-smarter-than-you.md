@@ -15,7 +15,9 @@ They were discussing a [new podcast which is out from 37signals called "Recordab
 
 If you read them, the code looks great. We've only seen glimpses of this Rails style, which David has alluded to or shown small parts of in interviews or conference talks. Until now, we couldn't see what the Rails "house style" is because we never had a real open source application written in that style. Now we do.
 
-However, I want you, dear reader, to rest your mind a bit. Covet not thy neighbor's codebase.
+The discussion on the podcast was mostly a sense of envy of how good the good was, and wondering: "Why doesn't our code look that good?"
+
+Covet not thy neighbor's codebase.
 
 The reason why your code doesn't look "as good" as 37signals' is because **your engineering strategy is not the same as theirs**.
 
@@ -41,6 +43,8 @@ The default engineering strategy for most companies is: **if we ship one more fe
 And so, 37signals' strategy creates a flywheel: you have more developers maintaining fewer LOC, which allows them to apply more fixup/review cycles to the same lines over and over, whereas most shops have to just throw shit over the wall and move on to the next thing. That creates a cleaner codebase, which helps reduce needed headcount, which also increases your likelihood of hiring great people (because great people want to work on great code).
 
 Most businesses cannot adopt the 37signals strategy because they are **fundamentally unwilling to relinquish the mindset** that "more features equals more money". And if 37signals has been consistent in anything when developing software, it's that they will not allow scope creep.
+
+Another reason they can't implement this strategy is **they don't have product market fit**. If you're default-dead and you're gonna run out of money, or if you're kind of coasting along at $1m a year with 5 people, you need to try lots of new things to attain PMF. They simply don't have the luxury of running at $5 million of ARR per employee and spending all this time polishing everything they've got. They need to throw shit against the wall and study what sticks.
 
 37signals is not full of geniuses. They are not better than you. What they've done is adopted a strategy that lets them ship better code.
 
