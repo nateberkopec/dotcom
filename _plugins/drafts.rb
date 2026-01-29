@@ -16,6 +16,23 @@ module Jekyll
           !draft.data['draft']
         end
       end
+
+      # Validate draft dates
+      drafts_collection.docs.each do |draft|
+        validate_draft_date(draft)
+      end
+    end
+
+    def validate_draft_date(draft)
+      return unless draft.data['date']
+
+      draft_date = draft.data['date']
+      today = Date.today
+
+      # Fail build if draft has a pub date > 30 days in the past
+      if draft_date < (today - 30)
+        raise "Suspicious old pub date in draft: #{draft.path} has date #{draft_date} (older than 30 days)"
+      end
     end
   end
 end
