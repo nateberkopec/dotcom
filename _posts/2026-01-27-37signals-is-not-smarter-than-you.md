@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "37signals Isn't Smarter Than You, But They Are Different"
-date: 2024-01-26 00:00:00
+date: 2026-01-27 00:00:00
 summary: "37signals' code looks great because of their engineering strategy: stay small, cut scope ruthlessly, hire well. Most companies can't adopt this because they're unwilling to give up the 'more features = more money' mindset."
 readtime: "601 words/3 minutes"
 ---
