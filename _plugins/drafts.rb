@@ -26,7 +26,7 @@ module Jekyll
     def validate_draft_date(draft)
       return unless draft.data['date']
 
-      draft_date = draft.data['date']
+      draft_date = draft.data['date'].to_date
       today = Date.today
 
       # Fail build if draft has a pub date > 30 days in the past
