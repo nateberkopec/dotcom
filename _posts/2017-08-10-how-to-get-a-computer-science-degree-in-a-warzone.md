@@ -18,7 +18,7 @@ Actually, he wasn't *just* in Syria. He was at the University of Aleppo. His nam
 
 At this point, the [Syrian Civil War](https://en.wikipedia.org/wiki/Syrian_Civil_War) had been raging in Aleppo for almost four years. One tenth of the total deaths of the war so far have happened in Aleppo. When Mohammed wrote this email in 2016, the tide was just starting to turn in favor of Assad's forces. You would be forgiven if, like me, you thought that life did not go on inside of a warzone, especially in a city where entire city blocks had been leveled to dust. But, it does - although life is hard, life goes on.
 
-{% marginfigure /assets/img/posts/dorm-bombing.jpg "Aftermath of the 2013 Aleppo University bombing. Mohammed: 'When I saw the photo of the University bombing in the post I saw everything: I saw who did it, how he did it, the bodies, legs, arms, blood, glass, melted metal, I was there. My heart beat is getting faster and the inhales and exhales is disturbing my body better to close this thing.' [NYTimes](http://www.nytimes.com/2013/01/16/world/middleeast/syria-violence.html)" %}
+{% marginfigure /assets/img/posts/dorm-bombing.jpg "Aftermath of the 2013 Aleppo University bombing. Mohammed: 'When I saw the photo of the University bombing in the post I saw everything: I saw who did it, how he did it, the bodies, legs, arms, blood, glass, melted metal, I was there. My heart beat is getting faster and the inhales and exhales is disturbing my body better to close this thing.' [NYTimes](https://archive.org/search?query=http://www.nytimes.com/2013/01/16/world/middleeast/syria-violence.html)" %}
 
 The [veil of ignorance](https://en.wikipedia.org/wiki/Veil_of_ignorance) had been stripped away. Here was someone my age, on the other side of the world, with the same interests as I do, but living in an actual warzone. He played video games with his friends, like I do, enjoyed programming in Ruby on Rails, like I do, but [his university was being bombed](https://en.wikipedia.org/wiki/Aleppo_University_bombings).
 
@@ -26,7 +26,7 @@ Mohammed and I continued corresponding. He never asked for anything except advic
 
 In January of this year, Mohammed fled Syria and made it to Turkey, where he is officially a Syrian refugee.
 
-{% marginfigure /assets/img/posts/avatar.jpg "Mohammed with his public key fingerprint. We both signed this post, see the end. [Keybase](https://keybase.pub/mohammedelias/me/avatar.jpg)" %}
+{% marginfigure /assets/img/posts/avatar.jpg "Mohammed with his public key fingerprint. We both signed this post, see the end. [Keybase](https://keybase.io/mohammedelias)" %}
 
 I'll turn it over to Mohammed to let him tell you his story. Mohammed's English is not bad, but I did heavily edit this section for readability and clarity.
 
@@ -50,11 +50,11 @@ Most of the students had very old hardware. Only a handful had brand new laptops
 
 In the spring of 2011, the Arab Spring spread to Syria. That summer, the civil war began.
 
-{% marginnote "[Washington Post, April 2013](https://www.washingtonpost.com/world/middle_east/in-syria-kidnappings-on-the-rise-as-lawlessness-spreads/2013/04/21/b0bb2f2e-a854-11e2-8302-3c7e0ea97057_story.html): 'Kidnappings of ordinary Syrians are rising at an alarming rate, a stark sign of the spreading lawlessness in their country after two years of war.'" %}
+{% marginnote "[Washington Post, April 2013](https://archive.org/search?query=https://www.washingtonpost.com/world/middle_east/in-syria-kidnappings-on-the-rise-as-lawlessness-spreads/2013/04/21/b0bb2f2e-a854-11e2-8302-3c7e0ea97057_story.html): 'Kidnappings of ordinary Syrians are rising at an alarming rate, a stark sign of the spreading lawlessness in their country after two years of war.'" %}
 
 On January 15 2013, Aleppo University was bombed. 82 people were killed and 160 were injured. Shortly after, while travelling back to Al-Qamishli to my family, I was kidnapped by thugs. I was in captivity for 32 days, 7 hours and about 21 minutes. I know because I counted, second by second. The gang that kidnapped me released me after forcing my family to pay a ransom of about $12,000 USD. Well, this was my savings to travel to Japan, and since the Syrian Lira had inflated so much since the war started it was even worse.
 
-{% marginfigure /assets/img/posts/scud-attack.jpg "[NY Times, February 23 2013](http://www.nytimes.com/2013/02/23/world/middleeast/scud-missile-aleppo.html): 'Antigovernment activists in Syria said the military fired Scud missiles into at least three rebel-held districts of Aleppo on Friday, flattening dozens of houses, killing at least 12 civilians and burying perhaps dozens of others under piles of rubble.' [Youtube video of the attack](https://www.youtube.com/watch?v=aOhPWCQSZSc&feature=youtu.be)." %}
+{% marginfigure /assets/img/posts/scud-attack.jpg "[NY Times, February 23 2013](https://archive.org/search?query=http://www.nytimes.com/2013/02/23/world/middleeast/scud-missile-aleppo.html): 'Antigovernment activists in Syria said the military fired Scud missiles into at least three rebel-held districts of Aleppo on Friday, flattening dozens of houses, killing at least 12 civilians and burying perhaps dozens of others under piles of rubble.' [Youtube video of the attack](https://www.youtube.com/watch?v=aOhPWCQSZSc&feature=youtu.be)." %}
 
 Aleppo was getting very bad at this time. There was no safe road to exit or enter Aleppo. In addition, if the faculty left or the university shut down, I would immediately be drafted into military service for the Assad regime. I started looking for ways to leave Syria. I emailed every foreign embassy on Earth to complete my undergraduate study. They all refused me because I did not have refugee status with the UNHCR.
 
@@ -80,7 +80,7 @@ By the end of 2016, I finished 5 levels of Japanese, took a preparation course f
 
 {% marginfigure /assets/img/posts/friendshouse.jpg "This was taken 5 hours before Mohammed left Aleppo." %}
 
-In Syria, [military service is compulsory for males over the age of 18 who are not in school](http://mpc-journal.org/blog/2017/04/23/compulsory-military-conscription-in-syria-drives-many-males-into-exile/). My exemption from service would expire after my graduation in March of 2017. I decided to leave Syria before that happened, before I could get caught by Assad's regime and turned into a cold-blood killer or to be killed by his mercenaries.
+In Syria, [military service is compulsory for males over the age of 18 who are not in school](https://archive.org/search?query=http://mpc-journal.org/blog/2017/04/23/compulsory-military-conscription-in-syria-drives-many-males-into-exile/). My exemption from service would expire after my graduation in March of 2017. I decided to leave Syria before that happened, before I could get caught by Assad's regime and turned into a cold-blood killer or to be killed by his mercenaries.
 
 In December of 2016, I crossed the border to Turkey after a very tough journey. I spent a night on the Syrian-Turkish border, surrounded by rocket fire and bombs falling. The next day, after I had left, 22 died from rocket fire near where I slept. 3 weeks later, I got a job as a junior iOS developer in a small office in Istanbul. I work 50 hours per week for about $430 per month. After 5 months I moved to Bursa, a smaller and cheaper city than Istanbul, where I got another job in a more reliable office than the previous one for $500 per month.
 
@@ -100,24 +100,24 @@ Hi, it's Nate again.
 
 Mohammed is out of the frying pan, but he's not out of the fire yet. If you've been following the news, you know that Turkey's future is highly unstable. After some discussion, Mohammed thinks his best chance at a safe and steady life and career is to **immigrate to Canada**. Canada has an extensive refugee immigration program, and I know there are a lot of companies there that might want to help.
 
-For a refugee who cannot return to their country due to civil war, [there are a few conditions](http://www.cic.gc.ca/english/refugees/outside/index.asp) you have to meet before you can apply to immigrate to Canada:
+For a refugee who cannot return to their country due to civil war, [there are a few conditions](https://archive.org/search?query=http://www.cic.gc.ca/english/refugees/outside/index.asp) you have to meet before you can apply to immigrate to Canada:
 
-{% marginnote "In 2016, a temporary policy allowed private sponsors in Canada to [refer refugees who did not have official refugee status with the UNCHR or a foreign state.](http://www.cic.gc.ca/english/department/laws-policy/syria-iraq-new.asp) Although this policy has expired, Mohammed still qualifies because he has official refugee status in Turkey." %}
+{% marginnote "In 2016, a temporary policy allowed private sponsors in Canada to [refer refugees who did not have official refugee status with the UNCHR or a foreign state.](https://archive.org/search?query=http://www.cic.gc.ca/english/department/laws-policy/syria-iraq-new.asp) Although this policy has expired, Mohammed still qualifies because he has official refugee status in Turkey." %}
 
 * **"You must be outside your home country."** Mohammed is in Turkey.
 * **"You have been seriously affected by civil war or armed conflict"** Hopefully obvious from the above.
-* **"You will still need the UNHCR, a referral organization, or a private sponsorship group to refer you."** The UNHCR protects refugees who are fleeing persecution based on their race, ethnicity or other status, which Mohammed is not (he's in the [Member of the Country of Asylum class](http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp#a2.1)). He will need a private sponsor.
+* **"You will still need the UNHCR, a referral organization, or a private sponsorship group to refer you."** The UNHCR protects refugees who are fleeing persecution based on their race, ethnicity or other status, which Mohammed is not (he's in the [Member of the Country of Asylum class](https://archive.org/search?query=http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp)). He will need a private sponsor.
 
-The reason why I've written this post is to help Mohammed find a private sponsor. In Canada, you can do that through two ways: by forming a [Group of Five](http://www.cic.gc.ca/english/refugees/sponsor/groups.asp), private citizens and permanent residents of Canada who all live in the same city and pledge to help the refugee they sponsor to resettle in Canada. The second way is a [Community Sponsor](http://www.cic.gc.ca/english/refugees/sponsor/community.asp), which can be a corporation or community organization.
+The reason why I've written this post is to help Mohammed find a private sponsor. In Canada, you can do that through two ways: by forming a [Group of Five](https://archive.org/search?query=http://www.cic.gc.ca/english/refugees/sponsor/groups.asp), private citizens and permanent residents of Canada who all live in the same city and pledge to help the refugee they sponsor to resettle in Canada. The second way is a [Community Sponsor](https://archive.org/search?query=http://www.cic.gc.ca/english/refugees/sponsor/community.asp), which can be a corporation or community organization.
 
-All private sponsorships entail financial and non-financial support, for the period of about a year or until Mohammed becomes self-sufficient. Since Mohammed is a junior computer programmer, hopefully that won't take very long. For more about what a sponsor has to do, [check out Canada's official explanation of the role of a sponsor.](http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp#a2.6)
+All private sponsorships entail financial and non-financial support, for the period of about a year or until Mohammed becomes self-sufficient. Since Mohammed is a junior computer programmer, hopefully that won't take very long. For more about what a sponsor has to do, [check out Canada's official explanation of the role of a sponsor.](https://archive.org/search?query=http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp)
 
-**If you are a permanent resident of Canada** (and, uh, [haven't murdered anybody](http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp#a2.4)) and are interested in helping Mohammed resettle in Canada, [please let Mohammed know by contacting him through this form](https://goo.gl/forms/6wvh3G5HCVVdEX7f1).
+**If you are a permanent resident of Canada** (and, uh, [haven't murdered anybody](https://archive.org/search?query=http://www.cic.gc.ca/english/resources/publications/ref-sponsor/section-2.asp)) and are interested in helping Mohammed resettle in Canada, [please let Mohammed know by contacting him through this form](https://goo.gl/forms/6wvh3G5HCVVdEX7f1).
 
 **If you are a Canadian corporation and want to help**, you can [contact Mohammed through this form.](https://goo.gl/forms/6wvh3G5HCVVdEX7f1) Mohammed has experience as a Ruby and iOS developer, and is currently working both at an iOS shop and with me on some Ruby projects. [Here's his resume.](https://gist.github.com/nateberkopec/c4cabcf32aebe0841205f065b5e83b4e) I think he would be a great asset to any Canadian employer. **However, your organization does not have to hire Mohammed to be his Community Sponsor**.
 
 In addition, if you live in *any* country whose immigration laws might allow someone like Mohammed immigrate, and you think you could help - please do [get in contact](https://goo.gl/forms/6wvh3G5HCVVdEX7f1).
 
-Mohammed is active on [Twitter](https://twitter.com/MohammedEliass) and [Github](https://github.com/Mohammed-Eliass).
+Mohammed is active on [Twitter](https://twitter.com/MohammedEliass) and [Github](https://archive.org/search?query=https://github.com/Mohammed-Eliass).
 
-This blog post has been cryptographically signed by both [myself](https://gist.github.com/nateberkopec/c3a4b97892e0ddcbf4f1b5053140c645) and [Mohammed](https://gist.github.com/Mohammed-Eliass/9d9067068b73049f2142ceb86af1a54f). You may verify our signatures on [Keybase](https://keybase.io/verify). I also signed the commit on Github ([repository here](https://github.com/nateberkopec/dotcom)) for this blog post.
+This blog post has been cryptographically signed by both [myself](https://gist.github.com/nateberkopec/c3a4b97892e0ddcbf4f1b5053140c645) and [Mohammed](https://archive.org/search?query=https://gist.github.com/Mohammed-Eliass/9d9067068b73049f2142ceb86af1a54f). You may verify our signatures on [Keybase](https://keybase.io/verify). I also signed the commit on Github ([repository here](https://github.com/nateberkopec/dotcom)) for this blog post.
