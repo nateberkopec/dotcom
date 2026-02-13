@@ -54,11 +54,10 @@ class LinkIntegrityTest < Minitest::Test
     url_targets, fragment_targets, resolution_failures = build_targets(references)
     failures.concat(resolution_failures)
 
-    response_cache = {}
-    cache_mutex = Mutex.new
+    response_cache = Concurrent::Map.new
 
-    failures.concat(check_targets(url_targets, response_cache, cache_mutex))
-    failures.concat(check_fragments(fragment_targets, response_cache, cache_mutex))
+    failures.concat(check_targets(url_targets, response_cache))
+    failures.concat(check_fragments(fragment_targets, response_cache))
 
     assert failures.empty?, format_failures(failures)
   end
@@ -151,27 +150,13 @@ class LinkIntegrityTest < Minitest::Test
     [url_targets, fragment_targets, failures]
   end
 
-  def check_targets(targets, response_cache, cache_mutex)
-    executor = Concurrent::ThreadPoolExecutor.new(
-      min_threads: POOL_SIZE,
-      max_threads: POOL_SIZE,
-      max_queue: 10_000,
-      fallback_policy: :caller_runs
-    )
-
-    futures = targets.map do |url, locations|
-      Concurrent::Promises.future_on(executor) do
-        check_target(url, locations.to_a, response_cache, cache_mutex)
-      end
+  def check_targets(targets, response_cache)
+    run_parallel_checks(targets) do |url, locations|
+      check_target(url, locations.to_a, response_cache)
     end
-
-    futures.map(&:value!).compact
-  ensure
-    executor&.shutdown
-    executor&.wait_for_termination(30)
   end
 
-  def check_target(url, locations, response_cache, cache_mutex)
+  def check_target(url, locations, response_cache)
     uri = URI.parse(url)
 
     last_error = nil
@@ -184,7 +169,7 @@ class LinkIntegrityTest < Minitest::Test
         code = response.code.to_i
 
         if code.between?(200, 299)
-          cache_mutex.synchronize { response_cache[url] = result }
+          response_cache[url] = result
           return nil
         end
 
@@ -209,33 +194,19 @@ class LinkIntegrityTest < Minitest::Test
     }
   end
 
-  def check_fragments(fragment_targets, response_cache, cache_mutex)
-    executor = Concurrent::ThreadPoolExecutor.new(
-      min_threads: POOL_SIZE,
-      max_threads: POOL_SIZE,
-      max_queue: 10_000,
-      fallback_policy: :caller_runs
-    )
-
-    futures = fragment_targets.map do |(url, fragment), locations|
-      Concurrent::Promises.future_on(executor) do
-        check_fragment(url, fragment, locations.to_a, response_cache, cache_mutex)
-      end
+  def check_fragments(fragment_targets, response_cache)
+    run_parallel_checks(fragment_targets) do |(url, fragment), locations|
+      check_fragment(url, fragment, locations.to_a, response_cache)
     end
-
-    futures.map(&:value!).compact
-  ensure
-    executor&.shutdown
-    executor&.wait_for_termination(30)
   end
 
-  def check_fragment(url, fragment, locations, response_cache, cache_mutex)
-    result = cache_mutex.synchronize { response_cache[url] }
+  def check_fragment(url, fragment, locations, response_cache)
+    result = response_cache[url]
 
     unless result
       uri = URI.parse(url)
-      result = request_with_redirects(uri)
-      cache_mutex.synchronize { response_cache[url] = result }
+      fetched = request_with_redirects(uri)
+      result = response_cache.put_if_absent(url, fetched) || fetched
     end
 
     response = result[:response]
@@ -270,6 +241,26 @@ class LinkIntegrityTest < Minitest::Test
       locations: locations,
       details: "#{e.class}: #{e.message}"
     }
+  end
+
+  def run_parallel_checks(targets)
+    executor = Concurrent::ThreadPoolExecutor.new(
+      min_threads: POOL_SIZE,
+      max_threads: POOL_SIZE,
+      max_queue: 10_000,
+      fallback_policy: :caller_runs
+    )
+
+    futures = targets.map do |target, locations|
+      Concurrent::Promises.future_on(executor) do
+        yield(target, locations)
+      end
+    end
+
+    futures.map(&:value!).compact
+  ensure
+    executor&.shutdown
+    executor&.wait_for_termination(30)
   end
 
   def request_with_redirects(uri)
