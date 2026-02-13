@@ -4,8 +4,6 @@ require "uri"
 require_relative "../test_helper"
 
 class SiteTest < Minitest::Test
-  BASE_URL = ENV.fetch("BASE_URL", "http://127.0.0.1:43123")
-
   def setup
     TestHelper.ensure_site_built!
     TestHelper.start_site_server!
@@ -45,7 +43,7 @@ class SiteTest < Minitest::Test
   private
 
   def get(path)
-    uri = URI.parse("#{BASE_URL}#{path}")
+    uri = URI.parse("#{TestHelper.base_url}#{path}")
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", open_timeout: 10, read_timeout: 10) do |http|
       http.request(Net::HTTP::Get.new(uri.request_uri))

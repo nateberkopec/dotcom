@@ -39,5 +39,6 @@ mise run test
 
 ### Local Test Server
 
-Integration tests build `_site` and start a local static server automatically on `127.0.0.1:43123` by default.
-Override with `BASE_URL` if needed.
+Integration tests build `_site` and start a local static server automatically on `127.0.0.1` using port `0` (ephemeral).
+The assigned port is discovered at runtime and used by the test helpers.
+Set `BASE_URL` to run against a specific target instead.

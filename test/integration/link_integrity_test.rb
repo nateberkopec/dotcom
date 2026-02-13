@@ -9,14 +9,6 @@ require "uri"
 require_relative "../test_helper"
 
 class LinkIntegrityTest < Minitest::Test
-  BASE_URL = ENV.fetch("BASE_URL", "http://127.0.0.1:43123")
-  INTERNAL_HOSTS = Set.new([
-    URI.parse(BASE_URL).host,
-    "localhost",
-    "127.0.0.1",
-    "www.nateberkopec.com",
-    "nateberkopec.com"
-  ].compact)
   REQUEST_TIMEOUT_SECONDS = 10
   REDIRECT_LIMIT = 5
   MAX_RETRIES = 3
@@ -42,6 +34,15 @@ class LinkIntegrityTest < Minitest::Test
   def setup
     TestHelper.ensure_site_built!
     TestHelper.start_site_server!
+
+    @base_url = TestHelper.base_url
+    @internal_hosts = Set.new([
+      URI.parse(@base_url).host,
+      "localhost",
+      "127.0.0.1",
+      "www.nateberkopec.com",
+      "nateberkopec.com"
+    ].compact)
   end
 
   def test_all_built_links_assets_and_fragments_are_valid
@@ -308,8 +309,8 @@ class LinkIntegrityTest < Minitest::Test
   end
 
   def resolve_url(source_url, raw)
-    base = "#{BASE_URL}#{source_url}"
-    candidate = raw.start_with?("//") ? "#{URI.parse(BASE_URL).scheme}:#{raw}" : raw
+    base = "#{@base_url}#{source_url}"
+    candidate = raw.start_with?("//") ? "#{URI.parse(@base_url).scheme}:#{raw}" : raw
 
     URI.join(base, candidate)
   rescue URI::InvalidURIError
@@ -317,9 +318,9 @@ class LinkIntegrityTest < Minitest::Test
   end
 
   def normalize_internal_url(uri)
-    return uri unless INTERNAL_HOSTS.include?(uri.host)
+    return uri unless @internal_hosts.include?(uri.host)
 
-    base = URI.parse(BASE_URL)
+    base = URI.parse(@base_url)
 
     normalized = uri.dup
     normalized.scheme = base.scheme
