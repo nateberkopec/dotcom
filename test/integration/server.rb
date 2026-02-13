@@ -2,7 +2,8 @@ require "pathname"
 require "webrick"
 
 host = ENV.fetch("TEST_SERVER_HOST", "127.0.0.1")
-port = ENV.fetch("TEST_SERVER_PORT", "43123").to_i
+port = ENV.fetch("TEST_SERVER_PORT", "0").to_i
+port_file = ENV["TEST_SERVER_PORT_FILE"]
 site_dir = ENV.fetch("TEST_SITE_DIR")
 
 class SiteServlet < WEBrick::HTTPServlet::AbstractServlet
@@ -91,6 +92,11 @@ server = WEBrick::HTTPServer.new(
   AccessLog: [],
   Logger: WEBrick::Log.new(File::NULL)
 )
+
+if port_file
+  assigned_port = server.listeners.first.addr[1]
+  File.write(port_file, assigned_port.to_s)
+end
 
 server.mount("/", SiteServlet, site_dir)
 
