@@ -167,7 +167,7 @@ class LinkIntegrityTest < Minitest::Test
         response = result[:response]
         code = response.code.to_i
 
-        if code.between?(200, 299)
+        if successful_status?(uri, code)
           response_cache[url] = result
           return nil
         end
@@ -260,6 +260,17 @@ class LinkIntegrityTest < Minitest::Test
   ensure
     executor&.shutdown
     executor&.wait_for_termination(30)
+  end
+
+  def successful_status?(uri, code)
+    return true if code.between?(200, 299)
+    return true if code == 403 && blocked_but_existing_host?(uri.host)
+
+    false
+  end
+
+  def blocked_but_existing_host?(host)
+    ["www.reddit.com", "reddit.com"].include?(host)
   end
 
   def request_with_redirects(uri)
