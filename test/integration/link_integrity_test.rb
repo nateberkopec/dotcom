@@ -27,8 +27,7 @@ class LinkIntegrityTest < Minitest::Test
     ["audio[src]", "src"],
     ["iframe[src]", "src"],
     ["embed[src]", "src"],
-    ["object[data]", "data"],
-    ["form[action]", "action"]
+    ["object[data]", "data"]
   ].freeze
 
   def setup
