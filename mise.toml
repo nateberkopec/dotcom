@@ -3,3 +3,15 @@ terraform = "latest"
 
 [env]
 _.file = ".env"
+
+[tasks."test:ruby"]
+description = "Run Ruby unit tests"
+run = "bundle exec rake test:ruby"
+
+[tasks."test:integration"]
+description = "Run integration tests"
+run = "bundle exec rake test:integration"
+
+[tasks.test]
+description = "Run full test suite"
+depends = ["test:ruby", "test:integration"]
