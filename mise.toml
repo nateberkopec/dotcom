@@ -1,8 +1,19 @@
 [tools]
+ruby = "4.0.2"
+node = "25.9.0"
 terraform = "latest"
+hk = "1.44.0"
 
 [env]
 _.file = ".env"
+
+[tasks.setup]
+description = "Install project dependencies and git hooks"
+run = """
+bundle install
+npm install
+hk install
+"""
 
 [tasks."test:ruby"]
 description = "Run Ruby unit tests"
@@ -15,3 +26,27 @@ run = "bundle exec rake test:integration"
 [tasks.test]
 description = "Run full test suite"
 depends = ["test:ruby", "test:integration"]
+
+[tasks."lint:ruby"]
+description = "Syntax-check Ruby sources"
+run = "bundle exec ruby -e 'files = [\"Rakefile\", *Dir[\"_plugins/**/*.rb\", \"test/**/*.rb\"]]; ok = files.all? { |file| system(RbConfig.ruby, \"-wc\", file) }; exit(ok ? 0 : 1)'"
+
+[tasks."lint:js"]
+description = "Syntax-check JavaScript config"
+run = "node --check postcss.config.js"
+
+[tasks."lint:site"]
+description = "Run Jekyll site diagnostics"
+run = "bundle exec jekyll doctor"
+
+[tasks.lint]
+description = "Run all lint checks"
+depends = ["lint:ruby", "lint:js", "lint:site"]
+
+[tasks.serve]
+description = "Start the local Jekyll dev server"
+run = "bundle exec jekyll serve --future --config _config.yml,_config_dev.yml"
+
+[tasks.build]
+description = "Build the site"
+run = "bundle exec jekyll build"
