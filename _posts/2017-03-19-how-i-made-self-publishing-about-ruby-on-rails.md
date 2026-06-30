@@ -59,7 +59,7 @@ Of course, there was a lot of "how-to" content in Ruby as well by 2015. [The Pra
 
 But in 2015, a new zeitgeist was taking hold in the Ruby community. Rubyists had always had anxiety about the performance of their applications, but it was reaching epidemic proportions. JavaScript and Node had long been attempting to steal Rails' de-facto leading position on the server, but now even more languages, such as Rust, Go, Scala and more were trying to usurp the king. Ruby-like languages (Elixir, Crystal) had started to pop up as well, promising the friendliness of Ruby with greater performance. Rubyists were (and still are) deathly worried that they were being left behind by faster languages. It was visible in the blog posts and conference talks - Rubyists were considering jumping ship for "faster" languages.
 
-{% marginfigure /assets/img/posts/flux.png "I'm good, thanks. [via twitter](https://twitter.com/andrej_kn/status/618951591081717761)" %}
+{% marginfigure /assets/img/posts/flux.png "I'm good, thanks. [via archived tweet](https://web.archive.org/web/*/https://twitter.com/andrej_kn/status/618951591081717761)" %}
 
 Surprisingly, Ruby-specific performance writing was pretty darn thin on the ground at the time. For a community that looked longingly through the window at faster languages all the time, no one seemed to be able to tell you how to make your existing Ruby application faster. The prevailing advice was "rm -rf and rewrite it in JavaScript", or a compromise position of "use Rails as an API, use a single-page-app framework on the frontend".
 
