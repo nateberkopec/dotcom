@@ -3,11 +3,20 @@ amends "package://github.com/jdx/hk/releases/download/v1.44.0/hk@1.44.0#/Config.
 hooks {
   ["pre-commit"] {
     steps {
-      ["lint"] {
-        check = "mise run lint"
+      ["lint:ruby"] {
+        check = "mise run lint:ruby"
       }
-      ["test"] {
-        check = "mise run test"
+      ["lint:js"] {
+        check = "mise run lint:js"
+      }
+      ["lint:site"] {
+        check = "mise run lint:site"
+      }
+      ["test:ruby"] {
+        check = "mise run test:ruby"
+      }
+      ["test:integration"] {
+        check = "mise run test:integration"
       }
     }
   }
