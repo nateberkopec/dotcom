@@ -270,7 +270,7 @@ class LinkIntegrityTest < Minitest::Test
   end
 
   def blocked_but_existing_host?(host)
-    ["www.reddit.com", "reddit.com"].include?(host)
+    ["www.reddit.com", "reddit.com", "opencv.org", "www.opencv.org"].include?(host)
   end
 
   def request_with_redirects(uri)
