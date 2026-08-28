@@ -67,7 +67,7 @@ class LinkIntegrityTest < Minitest::Test
     refs = []
 
     Dir.glob(File.join(TestHelper::SITE_DIR, "**", "*.html")).sort.each do |path|
-      html = File.read(path)
+      html = File.read(path, encoding: Encoding::UTF_8)
       doc = Nokogiri::HTML(html)
       source_url = served_path_for(path)
 

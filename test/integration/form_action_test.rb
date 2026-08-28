@@ -31,7 +31,7 @@ class FormActionTest < Minitest::Test
     actions = Hash.new { |hash, key| hash[key] = [] }
 
     Dir.glob(File.join(TestHelper::SITE_DIR, "**", "*.html")).sort.each do |file_path|
-      doc = Nokogiri::HTML(File.read(file_path))
+      doc = Nokogiri::HTML(File.read(file_path, encoding: Encoding::UTF_8))
       relative_path = Pathname.new(file_path).relative_path_from(Pathname.new(TestHelper::SITE_DIR)).to_s
 
       doc.css("form[action]").each do |form|
