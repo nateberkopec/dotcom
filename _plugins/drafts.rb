@@ -27,7 +27,7 @@ module Jekyll
       return unless draft.data['date']
 
       draft_date = draft.data['date'].to_date
-      today = Date.today
+      today = Time.now.utc.to_date
 
       # Fail build if draft has a pub date > 30 days in the past
       if draft_date < (today - 30)
