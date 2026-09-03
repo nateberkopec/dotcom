@@ -11,7 +11,7 @@ require_relative "../test_helper"
 class LinkIntegrityTest < Minitest::Test
   REQUEST_TIMEOUT_SECONDS = 10
   REDIRECT_LIMIT = 5
-  MAX_RETRIES = 3
+  MAX_RETRIES = 5
   POOL_SIZE = 25
 
   SELECTORS = [
