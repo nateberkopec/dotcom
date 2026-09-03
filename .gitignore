@@ -12,3 +12,4 @@ terraform.tfstate.backup
 *.tfstate.backup
 .env
 node_modules/
+tmp/
